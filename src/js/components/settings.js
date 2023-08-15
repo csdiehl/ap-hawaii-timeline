@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
 export const initialViewState = {
-  latitude: 30.7751,
-  longitude: 0,
-  zoom: 1.5,
+  latitude: 20,
+  longitude: -157,
+  zoom: 7,
   bearing: 0,
   pitch: 0,
 }
