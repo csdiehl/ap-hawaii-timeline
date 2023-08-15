@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react"
 import styled from "styled-components"
-import Legend from "../../components/Legend"
 import BaseMap from "../../components/Map"
 import { AbsolutePos, CardBackground } from "../../components/mixins"
 import { Text, Title, breakpoints } from "../../components/settings"
 import { mockData } from "./mock_data"
+import Buttons from "../../components/Buttons"
 import Timeline from "../../components/Timeline"
 
 const Container = styled.div`
@@ -38,6 +38,7 @@ function HeatTracker() {
   const containerRef = useRef()
 
   const event = mockData[currentIndex]
+  const n = mockData.length
 
   return (
     <Container ref={containerRef}>
@@ -48,7 +49,8 @@ function HeatTracker() {
         <Text>{formatDate(event.date)}</Text>
       </InfoBox>
       <BaseMap currentEvent={event} />
-      <Timeline setCurrentIndex={setCurrentIndex} nEvents={mockData.length} />
+      <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
+      <Timeline index={currentIndex} nEvents={n} />
     </Container>
   )
 }

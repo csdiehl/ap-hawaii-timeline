@@ -8,16 +8,7 @@ export const initialViewState = {
   pitch: 0,
 }
 
-export const colors = [
-  "#006788",
-  "#00ABE2",
-  "#CCEEF9",
-  "#FCD6D9",
-  "#EF3340",
-  "#992129",
-]
-
-export const citySizes = [2, 5, 10, 15]
+export const primaryColor = "#F9C16D"
 
 export const styleEnum = "ef0fe5a4221944c090fb642fa80c83e7"
 
