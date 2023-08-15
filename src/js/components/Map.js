@@ -1,15 +1,26 @@
 import maplibre from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
-import React, { useRef } from "react"
+import React, { useRef, useEffect } from "react"
 import Map, { Layer, NavigationControl, Source } from "react-map-gl"
 import { hotspots } from "./MapStyles"
 import { initialViewState, styleEnum } from "./settings"
 import { dateToUTC } from "./utils"
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
-function BaseMap({ currentEvent }) {
+function BaseMap({ currentEvent, viewState }) {
   const mapRef = useRef()
   const formattedDate = dateToUTC(currentEvent.date)
+
+  console.log(viewState.zoom)
+
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [viewState.longitude, viewState.latitude],
+        zoom: viewState.zoom,
+      })
+    }
+  }, [viewState])
 
   return (
     <>

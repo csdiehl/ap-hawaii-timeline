@@ -45,7 +45,6 @@ const MainDot = styled.div`
 
 const Timeline = ({ nEvents, index }) => {
   const translateBy = (100 / (nEvents - 1)) * index
-  console.log(translateBy, index)
   return (
     <Container>
       <Bar>

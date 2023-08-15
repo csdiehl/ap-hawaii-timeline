@@ -3,7 +3,7 @@ import styled from "styled-components"
 import BaseMap from "../../components/Map"
 import { AbsolutePos, CardBackground } from "../../components/mixins"
 import { Text, Title, breakpoints } from "../../components/settings"
-import { mockData } from "./mock_data"
+import data from "./timeline-data.json"
 import Buttons from "../../components/Buttons"
 import Timeline from "../../components/Timeline"
 
@@ -37,8 +37,12 @@ function HeatTracker() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef()
 
-  const event = mockData[currentIndex]
-  const n = mockData.length
+  const event = data[currentIndex]
+  const n = data.length
+  const { date, lat, lng, zoom } = event
+  const viewState = { latitude: lat, longitude: lng, zoom: zoom }
+
+  console.log(event)
 
   return (
     <Container ref={containerRef}>
@@ -46,9 +50,9 @@ function HeatTracker() {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Title>Hawaii Fire Timeline</Title>
         </div>
-        <Text>{formatDate(event.date)}</Text>
+        <Text>{formatDate(date)}</Text>
       </InfoBox>
-      <BaseMap currentEvent={event} />
+      <BaseMap viewState={viewState} currentEvent={event} />
       <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
       <Timeline index={currentIndex} nEvents={n} />
     </Container>
