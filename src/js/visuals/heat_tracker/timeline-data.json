@@ -23,7 +23,7 @@
     "location": null,
     "lat": 20.88506964,
     "lng": -156.6637123,
-    "zoom": "Mid"
+    "zoom": 8
   },
   {
     "slide": 3,
@@ -36,7 +36,7 @@
     "location": null,
     "lat": 20.8758723,
     "lng": -156.6753213,
-    "zoom": "Near"
+    "zoom": 11
   },
   {
     "slide": 4,
@@ -49,7 +49,7 @@
     "location": "",
     "lat": 20.88159848,
     "lng": -156.6818915,
-    "zoom": "Near"
+    "zoom": 11
   },
   {
     "slide": 5,
@@ -118,8 +118,8 @@
     "visual": "",
     "visual_link": "",
     "location": "",
-    "lat": "",
-    "lng": "",
+    "lat": 20.88596633,
+    "lng": -156.6796904,
     "zoom": 9
   },
   {

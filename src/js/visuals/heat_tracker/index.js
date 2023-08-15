@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react"
 import styled from "styled-components"
-import BaseMap from "../../components/Map"
-import { AbsolutePos, CardBackground } from "../../components/mixins"
-import { Text, Title, breakpoints } from "../../components/settings"
-import data from "./timeline-data.json"
 import Buttons from "../../components/Buttons"
+import BaseMap from "../../components/Map"
 import Timeline from "../../components/Timeline"
+import data from "./timeline-data.json"
+import InfoBox from "../../components/InfoBox"
 
 const Container = styled.div`
   height: 700px;
@@ -13,45 +12,20 @@ const Container = styled.div`
   position: relative;
 `
 
-const InfoBox = styled.div`
-  ${AbsolutePos}
-  top: 16px;
-  left: 16px;
-  ${CardBackground}
-
-  @media(${breakpoints.mobile}) {
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-`
-const formatDate = (dateString) =>
-  new Date(dateString).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-
 function HeatTracker() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef()
 
   const event = data[currentIndex]
   const n = data.length
-  const { date, lat, lng, zoom } = event
+  const { date, lat, lng, zoom, what } = event
   const viewState = { latitude: lat, longitude: lng, zoom: zoom }
 
   console.log(event)
 
   return (
     <Container ref={containerRef}>
-      <InfoBox>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Title>Hawaii Fire Timeline</Title>
-        </div>
-        <Text>{formatDate(date)}</Text>
-      </InfoBox>
+      <InfoBox currentIndex={currentIndex} date={date} text={what} />
       <BaseMap viewState={viewState} currentEvent={event} />
       <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
       <Timeline index={currentIndex} nEvents={n} />
