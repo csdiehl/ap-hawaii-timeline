@@ -25,7 +25,7 @@ function HeatTracker() {
 
   return (
     <Container ref={containerRef}>
-      <InfoBox currentIndex={currentIndex} date={date} text={what} />
+      <InfoBox currentIndex={currentIndex} data={data} />
       <BaseMap viewState={viewState} currentEvent={event} />
       <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
       <Timeline index={currentIndex} nEvents={n} />

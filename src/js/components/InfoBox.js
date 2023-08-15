@@ -22,7 +22,11 @@ const Container = styled.div`
   ${CardBackground}
   max-width: 300px;
   text-wrap: balance;
-  animation: ${slideUp} 500ms ease-in;
+  opacity: ${(props) => (props.show ? 1 : 0)};
+  transform: translateY(${(props) => (props.show ? "0%" : "10%")});
+  transition: opacity 500ms ease-in-out
+      ${(props) => (props.show ? "500ms" : "")},
+    transform 500ms ease-in-out 500ms;
 
   @media (${breakpoints.mobile}) {
     top: 0;
@@ -39,15 +43,19 @@ const formatDate = (dateString) =>
     day: "numeric",
   })
 
-const InfoBox = ({ date, text, currentIndex }) => {
+const InfoBox = ({ data, currentIndex }) => {
   return (
-    <Container key={currentIndex}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Title>A thing happened</Title>
-      </div>
-      <Text style={{ color: "lightgrey" }}>{formatDate(date)}</Text>
-      <Text style={{ marginTop: "16px" }}>{text}</Text>
-    </Container>
+    <>
+      {data.map((d, i) => (
+        <Container id="current-message" show={currentIndex === i} key={i}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Title>A thing happened</Title>
+          </div>
+          <Text style={{ color: "lightgrey" }}>{formatDate(d.date)}</Text>
+          <Text style={{ marginTop: "16px" }}>{d.what}</Text>
+        </Container>
+      ))}
+    </>
   )
 }
 
