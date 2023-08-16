@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { AbsolutePos } from "./mixins"
 import PropTypes from "prop-types"
+import { breakpoints } from "./settings"
 
 const Container = styled.div`
   ${AbsolutePos};
@@ -11,6 +12,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   pointer-events: none;
+
+  @media (${breakpoints.mobile}) {
+    top: 80%;
+  }
 `
 
 const Button = styled.button`

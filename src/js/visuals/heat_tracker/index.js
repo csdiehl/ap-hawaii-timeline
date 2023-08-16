@@ -14,20 +14,23 @@ import {
   solarSiren,
 } from "../../components/MapStyles"
 import Pin from "../../components/Pin"
-import { initialViewState, styleEnum } from "../../components/settings"
+import {
+  initialViewState,
+  styleEnum,
+  hotspotURL,
+  eventsURL,
+} from "../../components/settings"
 import { dateToUTC } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
 import difference from "@turf/difference"
 import sirensData from "./sirens.json"
+import TitleBlock from "../../components/TitleBlock"
 
 const Container = styled.div`
   height: 700px;
   width: 100%;
   position: relative;
 `
-
-const hotspotURL = "./hawaii_hotspots_8.15.json"
-const eventsURL = "./visual-timeline_8.16.json"
 
 const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
 
@@ -98,6 +101,7 @@ function HeatTracker() {
 
   return (
     <Container ref={containerRef}>
+      {currentIndex < 0 && <TitleBlock advanceEvent={advanceEvent} />}
       {timelineData && (
         <>
           <InfoBox currentIndex={currentIndex} data={timelineData} />
@@ -158,7 +162,9 @@ function HeatTracker() {
                 )}
               </>
             )}
-            <NavigationControl position="top-right" />
+            {window.innerWidth >= 425 && (
+              <NavigationControl position="top-right" />
+            )}
           </Map>
           <Buttons goForward={advanceEvent} goBack={goBack} />
           <Timeline index={currentIndex} nEvents={n} />

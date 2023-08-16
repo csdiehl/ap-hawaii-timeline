@@ -1,5 +1,8 @@
 import styled from "styled-components"
 
+export const hotspotURL = "./hawaii_hotspots_8.15.json"
+export const eventsURL = "./visual-timeline_8.16.json"
+
 export const initialViewState = {
   latitude: 20,
   longitude: -157,

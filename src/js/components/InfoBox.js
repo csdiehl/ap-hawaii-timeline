@@ -33,7 +33,7 @@ const Container = styled.div`
   top: 16px;
   left: 16px;
   ${CardBackground}
-  max-width: 300px;
+  max-width: 400px;
   text-wrap: balance;
   opacity: ${(props) => (props.show ? 1 : 0)};
   animation: ${(props) => (props.show ? slideUp : slideOut)} 500ms backwards
@@ -43,6 +43,7 @@ const Container = styled.div`
     top: 0;
     left: 0;
     width: 100%;
+    background: rgba(0, 0, 0, 0.3);
   }
 `
 

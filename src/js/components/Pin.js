@@ -55,7 +55,7 @@ const CenterMarker = styled.circle`
   transform-origin: center;
 `
 
-function Pin({ size = 40, show }) {
+function Pin({ size = 40, show = true }) {
   return (
     <svg height={size} viewBox="0 0 40 40" style={pinStyle}>
       <g style={{ visibility: show ? "visible" : "hidden" }}>
