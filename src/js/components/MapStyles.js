@@ -12,3 +12,14 @@ export const hotspots = {
     "circle-radius": 2,
   },
 }
+
+export const BoxLayer = {
+  id: "box-layer",
+  source: "bounding-box",
+  type: "line",
+  paint: {
+    "line-width": 2,
+    "line-dasharray": [2, 2],
+    "line-color": primaryColor,
+  },
+}

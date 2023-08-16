@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components"
 
 const pulse1 = keyframes`
 0% {
-		opacity: 0;
+		opacity: .1;
 		transform: scale(0);
 	}
 
@@ -18,7 +18,7 @@ const pulse1 = keyframes`
 	}
 
 	100% {
-		opacity: 0;
+		opacity: .1;
 		transform: scale(2);
 	}
 `
@@ -26,7 +26,7 @@ const pulse1 = keyframes`
 const pulse2 = keyframes`
 0% {
 		transform: scale(1, 1);
-		opacity: 0;
+		opacity: .1;
 	}
 
 	50% {
@@ -35,7 +35,7 @@ const pulse2 = keyframes`
 
 	100% {
 	    transform: scale(4, 4);
-	    opacity: 0;
+	    opacity: .1;
 		}
 `
 
