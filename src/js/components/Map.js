@@ -5,6 +5,7 @@ import Map, { Layer, NavigationControl, Source } from "react-map-gl"
 import { hotspots } from "./MapStyles"
 import { initialViewState, styleEnum } from "./settings"
 import { dateToUTC } from "./utils"
+import PropTypes from "prop-types"
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
 function BaseMap({ currentEvent }) {
@@ -47,6 +48,10 @@ function BaseMap({ currentEvent }) {
       </Map>
     </>
   )
+}
+
+BaseMap.propTypes = {
+  currentEvent: PropTypes.object,
 }
 
 export default BaseMap

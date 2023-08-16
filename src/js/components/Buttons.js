@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { AbsolutePos } from "./mixins"
+import PropTypes from "prop-types"
 
 const Container = styled.div`
   ${AbsolutePos};
@@ -58,6 +59,11 @@ const Buttons = ({ nEvents, setCurrentIndex }) => {
       </Button>
     </Container>
   )
+}
+
+Buttons.propTypes = {
+  nEvents: PropTypes.number,
+  setCurrentIndex: PropTypes.func,
 }
 
 export default Buttons

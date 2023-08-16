@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { AbsolutePos } from "./mixins"
+import PropTypes from "prop-types"
 
 const dotStyles = `
  background: #fff;
@@ -55,6 +56,11 @@ const Timeline = ({ nEvents, index }) => {
       </Bar>
     </Container>
   )
+}
+
+Timeline.propTypes = {
+  nEvents: PropTypes.number,
+  index: PropTypes.number,
 }
 
 export default Timeline

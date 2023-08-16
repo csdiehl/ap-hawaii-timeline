@@ -2,6 +2,7 @@ import React from "react"
 import styled, { keyframes } from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
 import { Text, Title, breakpoints } from "./settings"
+import PropTypes from "prop-types"
 
 const slideUp = keyframes`
 0% {
@@ -67,6 +68,11 @@ const InfoBox = ({ data, currentIndex }) => {
       ))}
     </>
   )
+}
+
+InfoBox.propTypes = {
+  data: PropTypes.array,
+  currentIndex: PropTypes.number,
 }
 
 export default InfoBox
