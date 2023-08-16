@@ -6,12 +6,24 @@ import { Text, Title, breakpoints } from "./settings"
 const slideUp = keyframes`
 0% {
     opacity: 0;
-    transform: translateY(10%);
+    transform: translateY(20%);
 }
 
 100% {
     opacity: 1;
     transform: translateY(0%);
+}
+`
+
+const slideOut = keyframes`
+0% {
+    opacity: 1;
+    transform: translateY(0%);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(-50%);
 }
 `
 
@@ -23,10 +35,8 @@ const Container = styled.div`
   max-width: 300px;
   text-wrap: balance;
   opacity: ${(props) => (props.show ? 1 : 0)};
-  transform: translateY(${(props) => (props.show ? "0%" : "10%")});
-  transition: opacity 500ms ease-in-out
-      ${(props) => (props.show ? "500ms" : "")},
-    transform 500ms ease-in-out 500ms;
+  animation: ${(props) => (props.show ? slideUp : slideOut)} 500ms backwards
+    ${(props) => (props.show ? "500ms" : "")};
 
   @media (${breakpoints.mobile}) {
     top: 0;

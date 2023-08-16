@@ -11,13 +11,13 @@ function BaseMap({ currentEvent, viewState }) {
   const mapRef = useRef()
   const formattedDate = dateToUTC(currentEvent.date)
 
-  console.log(viewState.zoom)
-
   useEffect(() => {
     if (mapRef.current) {
+      console.log(viewState)
       mapRef.current.flyTo({
         center: [viewState.longitude, viewState.latitude],
         zoom: viewState.zoom,
+        essential: true,
       })
     }
   }, [viewState])

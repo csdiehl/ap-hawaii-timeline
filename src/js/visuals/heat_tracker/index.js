@@ -21,8 +21,6 @@ function HeatTracker() {
   const { date, lat, lng, zoom, what } = event
   const viewState = { latitude: lat, longitude: lng, zoom: zoom }
 
-  console.log(event)
-
   return (
     <Container ref={containerRef}>
       <InfoBox currentIndex={currentIndex} data={data} />
