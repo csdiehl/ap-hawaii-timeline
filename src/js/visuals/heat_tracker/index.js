@@ -38,7 +38,7 @@ const Box = {
 
 function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(-1)
   const [mapLoaded, setMapLoaded] = useState(false)
   const containerRef = useRef()
   const mapRef = useRef()
@@ -106,15 +106,24 @@ function HeatTracker() {
                     filter={["<=", ["get", "acq_date"], formattedDate]}
                   ></Layer>
                 </Source>
-                <Marker latitude={event.lat} longitude={event.lng}>
-                  <Pin show={event.visual === "Map point"} />
-                </Marker>
-                {event?.slide === 6 && (
-                  <Source id="bounding-box" type="geojson" data={Box}>
-                    <Layer {...BoxLayer} />
-                  </Source>
+                {currentIndex >= 0 && (
+                  <>
+                    <Marker latitude={event?.lat} longitude={event?.lng}>
+                      <Pin show={event?.visual === "Map point"} />
+                    </Marker>
+
+                    <Source id="bounding-box" type="geojson" data={Box}>
+                      <Layer
+                        {...BoxLayer}
+                        layout={{
+                          visibility: event?.slide === 6 ? "visible" : "none",
+                        }}
+                      />
+                    </Source>
+
+                    <NavigationControl position="top-right" />
+                  </>
                 )}
-                <NavigationControl position="top-right" />
               </>
             )}
           </Map>
