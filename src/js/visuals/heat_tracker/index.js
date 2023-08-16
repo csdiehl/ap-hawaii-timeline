@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import styled from "styled-components"
 import Buttons from "../../components/Buttons"
 import BaseMap from "../../components/Map"
@@ -13,18 +13,27 @@ const Container = styled.div`
 `
 
 function HeatTracker() {
+  const [timelineData, setTimelineData] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef()
 
-  const event = data[currentIndex]
-  const n = data.length
-  const { date, lat, lng, zoom, what } = event
-  const viewState = { latitude: lat, longitude: lng, zoom: zoom }
+  const event = timelineData && timelineData[currentIndex]
+  const n = timelineData?.length
+
+  useEffect(() => {
+    async function getData() {
+      const res = await fetch("./timeline-data.json")
+      const json = await res.json()
+      return json
+    }
+
+    getData.then((data) => setTimelineData(data))
+  }, [])
 
   return (
     <Container ref={containerRef}>
       <InfoBox currentIndex={currentIndex} data={data} />
-      <BaseMap viewState={viewState} currentEvent={event} />
+      <BaseMap currentEvent={event} />
       <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
       <Timeline index={currentIndex} nEvents={n} />
     </Container>

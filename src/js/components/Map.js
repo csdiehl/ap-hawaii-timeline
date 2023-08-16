@@ -7,20 +7,21 @@ import { initialViewState, styleEnum } from "./settings"
 import { dateToUTC } from "./utils"
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
-function BaseMap({ currentEvent, viewState }) {
+function BaseMap({ currentEvent }) {
   const mapRef = useRef()
   const formattedDate = dateToUTC(currentEvent.date)
 
   useEffect(() => {
-    if (mapRef.current) {
-      console.log(viewState)
-      mapRef.current.flyTo({
-        center: [viewState.longitude, viewState.latitude],
-        zoom: viewState.zoom,
+    const { current: map } = mapRef
+    if (map && currentEvent) {
+      console.log(currentEvent)
+      map.flyTo({
+        center: [currentEvent.lng, currentEvent.lat],
+        zoom: currentEvent.zoom,
         essential: true,
       })
     }
-  }, [viewState])
+  }, [currentEvent])
 
   return (
     <>
