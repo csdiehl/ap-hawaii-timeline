@@ -1,6 +1,6 @@
 import maplibre from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import Map, { Layer, NavigationControl, Source } from "react-map-gl"
 import { hotspots } from "./MapStyles"
 import { initialViewState, styleEnum } from "./settings"
@@ -8,24 +8,29 @@ import { dateToUTC } from "./utils"
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
 function BaseMap({ currentEvent }) {
+  const [mapLoaded, setMapLoaded] = useState(false)
   const mapRef = useRef()
   const formattedDate = dateToUTC(currentEvent.date)
 
+  const [prevSlide, setPrevSlide] = useState(null)
+
   useEffect(() => {
     const { current: map } = mapRef
-    if (map && currentEvent) {
-      console.log(currentEvent)
+    if (map && currentEvent && mapLoaded) {
       map.flyTo({
         center: [currentEvent.lng, currentEvent.lat],
         zoom: currentEvent.zoom,
         essential: true,
       })
+
+      setPrevSlide(currentEvent.slide)
     }
-  }, [currentEvent])
+  }, [currentEvent, mapLoaded, prevSlide])
 
   return (
     <>
       <Map
+        onLoad={() => setMapLoaded(true)}
         mapLib={maplibre}
         attributionControl={false}
         ref={mapRef}

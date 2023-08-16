@@ -3,7 +3,6 @@ import styled from "styled-components"
 import Buttons from "../../components/Buttons"
 import BaseMap from "../../components/Map"
 import Timeline from "../../components/Timeline"
-import data from "./timeline-data.json"
 import InfoBox from "../../components/InfoBox"
 
 const Container = styled.div`
@@ -27,15 +26,19 @@ function HeatTracker() {
       return json
     }
 
-    getData.then((data) => setTimelineData(data))
+    getData().then((data) => setTimelineData(data))
   }, [])
 
   return (
     <Container ref={containerRef}>
-      <InfoBox currentIndex={currentIndex} data={data} />
-      <BaseMap currentEvent={event} />
-      <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
-      <Timeline index={currentIndex} nEvents={n} />
+      {timelineData && (
+        <>
+          <InfoBox currentIndex={currentIndex} data={timelineData} />
+          <BaseMap currentEvent={event} />
+          <Buttons setCurrentIndex={setCurrentIndex} nEvents={n} />
+          <Timeline index={currentIndex} nEvents={n} />
+        </>
+      )}
     </Container>
   )
 }
