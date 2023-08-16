@@ -42,10 +42,20 @@ export const solarSiren = {
   source: "sirens-data",
   type: "circle",
   paint: {
-    "circle-color": "blue",
+    "circle-color": "#FFF",
     "circle-stroke-opacity": 0.3,
-    "circle-stroke-width": 10,
-    "circle-stroke-color": "blue",
-    "circle-radius": 4,
+    "circle-stroke-width": 0,
+    "circle-stroke-color": "#FFF",
+    "circle-radius": 14,
+  },
+}
+
+export const mask = {
+  id: "mask",
+  source: "masked-area",
+  type: "fill",
+  paint: {
+    "fill-color": "black",
+    "fill-opacity": 0.5,
   },
 }

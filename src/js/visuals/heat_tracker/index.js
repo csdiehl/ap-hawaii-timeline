@@ -9,6 +9,7 @@ import Timeline from "../../components/Timeline"
 import {
   BoxLayer,
   hotspots,
+  mask,
   sirens,
   solarSiren,
 } from "../../components/MapStyles"
@@ -16,6 +17,7 @@ import Pin from "../../components/Pin"
 import { initialViewState, styleEnum } from "../../components/settings"
 import { dateToUTC } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
+import difference from "@turf/difference"
 import sirensData from "./sirens.json"
 
 const Container = styled.div`
@@ -26,6 +28,8 @@ const Container = styled.div`
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
 const eventsURL = "./visual-timeline_8.16.json"
+
+const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
 
 function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
@@ -41,6 +45,7 @@ function HeatTracker() {
   const n = timelineData?.length
   const formattedDate = dateToUTC(event?.date)
   const boundingBox = event?.location && bboxPolygon(event.location)
+  const maskedArea = boundingBox && difference(hawaiiArea, boundingBox)
   const showSirens = event && event.title.includes("siren")
 
   function advanceEvent() {
@@ -89,6 +94,8 @@ function HeatTracker() {
     getData(eventsURL).then((data) => setTimelineData(data))
   }, [])
 
+  console.log("location", event?.location)
+
   return (
     <Container ref={containerRef}>
       {timelineData && (
@@ -130,8 +137,22 @@ function HeatTracker() {
                       <Pin show={event?.visual === "Map point"} />
                     </Marker>
 
+                    <Source id="masked-area" type="geojson" data={maskedArea}>
+                      <Layer
+                        {...mask}
+                        layout={{
+                          visibility: event?.location ? "visible" : "none",
+                        }}
+                      />
+                    </Source>
+
                     <Source id="bounding-box" type="geojson" data={boundingBox}>
-                      <Layer {...BoxLayer} />
+                      <Layer
+                        {...BoxLayer}
+                        layout={{
+                          visibility: event?.location ? "visible" : "none",
+                        }}
+                      />
                     </Source>
                   </>
                 )}
