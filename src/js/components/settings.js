@@ -1,6 +1,8 @@
 import styled from "styled-components"
 
-export const hotspotURL = "./hawaii_hotspots_8.15.json"
+const s3Bucket = "https://s3.amazonaws.com/data.ap.org/"
+
+export const hotspotURL = `${s3Bucket}hawaii_hotspots_8.15.json`
 export const eventsURL = "./visual-timeline_8.16.json"
 
 export const initialViewState = {
