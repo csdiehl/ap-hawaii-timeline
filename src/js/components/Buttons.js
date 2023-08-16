@@ -40,21 +40,13 @@ const Arrow = styled.img`
   transition: transform 200ms linear;
 `
 
-const Buttons = ({ nEvents, setCurrentIndex }) => {
-  function advanceEvent() {
-    setCurrentIndex((prev) => (prev === nEvents - 1 ? 0 : prev + 1))
-  }
-
-  function goBack() {
-    setCurrentIndex((prev) => (prev === 0 ? nEvents - 1 : prev - 1))
-  }
-
+const Buttons = ({ goForward, goBack }) => {
   return (
     <Container>
       <Button onClick={goBack}>
         <Arrow alt="backward" src="./arrow-left.svg" />
       </Button>
-      <Button onClick={advanceEvent}>
+      <Button onClick={goForward}>
         <Arrow alt="forward" src="./arrow-right.svg" />
       </Button>
     </Container>
@@ -62,8 +54,8 @@ const Buttons = ({ nEvents, setCurrentIndex }) => {
 }
 
 Buttons.propTypes = {
-  nEvents: PropTypes.number,
-  setCurrentIndex: PropTypes.func,
+  goBack: PropTypes.func,
+  goForward: PropTypes.func,
 }
 
 export default Buttons

@@ -48,36 +48,34 @@ function BaseMap({ currentEvent }) {
   }, [currentEvent, mapLoaded, prevSlide])
 
   return (
-    <>
-      <Map
-        onLoad={() => setMapLoaded(true)}
-        mapLib={maplibre}
-        attributionControl={false}
-        ref={mapRef}
-        initialViewState={initialViewState}
-        mapStyle={`https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`}
-      >
-        {mapLoaded && (
-          <>
-            <Source id="hotspots" type="geojson" data={hotspotURL}>
-              <Layer
-                {...hotspots}
-                filter={["<=", ["get", "acq_date"], formattedDate]}
-              ></Layer>
+    <Map
+      attributionControl={false}
+      onLoad={() => setMapLoaded(true)}
+      mapLib={maplibre}
+      ref={mapRef}
+      initialViewState={initialViewState}
+      mapStyle={`https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`}
+    >
+      {mapLoaded && (
+        <>
+          <Source id="hotspots" type="geojson" data={hotspotURL}>
+            <Layer
+              {...hotspots}
+              filter={["<=", ["get", "acq_date"], formattedDate]}
+            ></Layer>
+          </Source>
+          <Marker latitude={currentEvent.lat} longitude={currentEvent.lng}>
+            <Pin show={currentEvent.visual === "Map point"} />
+          </Marker>
+          {currentEvent?.slide === 6 && (
+            <Source id="bounding-box" type="geojson" data={Box}>
+              <Layer {...BoxLayer} />
             </Source>
-            <Marker latitude={currentEvent.lat} longitude={currentEvent.lng}>
-              <Pin show={currentEvent.visual === "Map point"} />
-            </Marker>
-            {currentEvent?.slide === 6 && (
-              <Source id="bounding-box" type="geojson" data={Box}>
-                <Layer {...BoxLayer} />
-              </Source>
-            )}
-            <NavigationControl position="top-right" />
-          </>
-        )}
-      </Map>
-    </>
+          )}
+          <NavigationControl position="top-right" />
+        </>
+      )}
+    </Map>
   )
 }
 
