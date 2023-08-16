@@ -1,8 +1,9 @@
+import PropTypes from "prop-types"
 import React from "react"
 import styled, { keyframes } from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
 import { Text, Title, breakpoints, primaryColor } from "./settings"
-import PropTypes from "prop-types"
+import useIsMounted from "./useIsMounted"
 
 const slideUp = keyframes`
 0% {
@@ -36,6 +37,7 @@ const Container = styled.div`
   max-width: 400px;
   text-wrap: balance;
   opacity: ${(props) => (props.show ? 1 : 0)};
+  pointer-events: ${(props) => (props.show ? "all" : "none")};
   animation: ${(props) => (props.show ? slideUp : slideOut)} 500ms backwards
     ${(props) => (props.show ? "500ms" : "")};
 
@@ -57,25 +59,30 @@ const formatDate = (dateString) => {
 }
 
 const InfoBox = ({ data, currentIndex }) => {
+  const mounted = useIsMounted()
+
+  console.log(mounted.current)
+
   return (
     <>
-      {data.map((d, i) => (
-        <Container id="current-message" show={currentIndex === i} key={i}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Title>{d.title}</Title>
-          </div>
-          <Text style={{ color: "lightgrey" }}>
-            <strong style={{ color: primaryColor }}>
-              {d.approx_local_time}
-            </strong>
-            , {formatDate(d.date)}
-          </Text>
-          <Text
-            dangerouslySetInnerHTML={{ __html: d.what }}
-            style={{ marginTop: "16px" }}
-          ></Text>
-        </Container>
-      ))}
+      {mounted &&
+        data.map((d, i) => (
+          <Container id="current-message" show={currentIndex === i} key={i}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Title>{d.title}</Title>
+            </div>
+            <Text style={{ color: "lightgrey" }}>
+              <strong style={{ color: primaryColor }}>
+                {d.approx_local_time}
+              </strong>
+              , {formatDate(d.date)}
+            </Text>
+            <Text
+              dangerouslySetInnerHTML={{ __html: d.what }}
+              style={{ marginTop: "16px" }}
+            ></Text>
+          </Container>
+        ))}
     </>
   )
 }

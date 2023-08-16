@@ -53,6 +53,16 @@ export const Text = styled.h4`
   font-weight: 400;
   line-height: 1rem;
   margin: 5px 0px 0px;
+
+  a {
+    color: orange;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 `
 
 export const thisMonth = new Date().toLocaleString("default", { month: "long" })

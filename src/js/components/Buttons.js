@@ -45,12 +45,18 @@ const Arrow = styled.img`
   transition: transform 200ms linear;
 `
 
-const Buttons = ({ goForward, goBack }) => {
+const Buttons = ({ goForward, goBack, timelineStarted }) => {
   return (
     <Container>
-      <Button onClick={goBack}>
-        <Arrow alt="backward" src="./arrow-left.svg" />
-      </Button>
+      {
+        <Button
+          style={{ visibility: timelineStarted ? "visible" : "hidden" }}
+          disabled={!timelineStarted}
+          onClick={goBack}
+        >
+          <Arrow alt="backward" src="./arrow-left.svg" />
+        </Button>
+      }
       <Button onClick={goForward}>
         <Arrow alt="forward" src="./arrow-right.svg" />
       </Button>
@@ -61,6 +67,7 @@ const Buttons = ({ goForward, goBack }) => {
 Buttons.propTypes = {
   goBack: PropTypes.func,
   goForward: PropTypes.func,
+  timelineStarted: PropTypes.bool,
 }
 
 export default Buttons

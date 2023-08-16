@@ -50,6 +50,7 @@ function HeatTracker() {
   const boundingBox = event?.location && bboxPolygon(event.location)
   const maskedArea = boundingBox && difference(hawaiiArea, boundingBox)
   const showSirens = event && event.title.includes("siren")
+  const timelineStarted = currentIndex >= 0
 
   function advanceEvent() {
     setCurrentIndex((prev) => {
@@ -105,6 +106,7 @@ function HeatTracker() {
       {timelineData && (
         <>
           <InfoBox currentIndex={currentIndex} data={timelineData} />
+
           <Map
             onZoomEnd={(evt) => setZoomLevel(evt.viewState.zoom)}
             attributionControl={false}
@@ -166,7 +168,11 @@ function HeatTracker() {
               <NavigationControl position="top-right" />
             )}
           </Map>
-          <Buttons goForward={advanceEvent} goBack={goBack} />
+          <Buttons
+            timelineStarted={timelineStarted}
+            goForward={advanceEvent}
+            goBack={goBack}
+          />
           <Timeline index={currentIndex} nEvents={n} />
         </>
       )}
