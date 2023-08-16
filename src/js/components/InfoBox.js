@@ -60,10 +60,13 @@ const InfoBox = ({ data, currentIndex }) => {
       {data.map((d, i) => (
         <Container id="current-message" show={currentIndex === i} key={i}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Title>A thing happened</Title>
+            <Title>{d.title}</Title>
           </div>
           <Text style={{ color: "lightgrey" }}>{formatDate(d.date)}</Text>
-          <Text style={{ marginTop: "16px" }}>{d.what}</Text>
+          <Text
+            dangerouslySetInnerHTML={{ __html: d.what }}
+            style={{ marginTop: "16px" }}
+          ></Text>
         </Container>
       ))}
     </>

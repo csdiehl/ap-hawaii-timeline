@@ -10,6 +10,7 @@ import { BoxLayer, hotspots } from "../../components/MapStyles"
 import Pin from "../../components/Pin"
 import { initialViewState, styleEnum } from "../../components/settings"
 import { dateToUTC } from "../../components/utils"
+import bboxPolygon from "@turf/bbox-polygon"
 
 const Container = styled.div`
   height: 700px;
@@ -18,23 +19,7 @@ const Container = styled.div`
 `
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
-
-const Box = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-      [
-        [-156.66231252427346, 20.831433234532707],
-        [-156.63863255928243, 20.831433234532707],
-        [-156.63863255928243, 20.860437663285378],
-        [-156.66231252427346, 20.860437663285378],
-        [-156.66231252427346, 20.831433234532707],
-      ],
-    ],
-  },
-}
+const eventsURL = "./2023-08-16-visual-timeline.json"
 
 function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
@@ -46,6 +31,9 @@ function HeatTracker() {
   const event = timelineData && timelineData[currentIndex]
   const n = timelineData?.length
   const formattedDate = dateToUTC(event?.date)
+  const boundingBox = event?.location && bboxPolygon(event.location)
+
+  console.log(boundingBox)
 
   function advanceEvent() {
     setCurrentIndex((prev) => {
@@ -66,18 +54,26 @@ function HeatTracker() {
   function transitionMap(n) {
     const { current: map } = mapRef
     if (!map || !timelineData) return
-    const event = timelineData[n]
+    const { lat, lng, location, zoom } = timelineData[n]
 
-    map.flyTo({
-      center: [event.lng, event.lat],
-      zoom: event.zoom,
-      essential: true,
-    })
+    if (lat && lng) {
+      map.flyTo({
+        center: [lng, lat],
+        zoom: zoom,
+        essential: true,
+      })
+    } else if (location) {
+      console.log(location)
+      map.fitBounds(location, {
+        padding: 40,
+        essential: true,
+      })
+    }
   }
 
   useEffect(() => {
     async function getData() {
-      const res = await fetch("./timeline-data.json")
+      const res = await fetch(eventsURL)
       const json = await res.json()
       return json
     }
@@ -112,13 +108,8 @@ function HeatTracker() {
                       <Pin show={event?.visual === "Map point"} />
                     </Marker>
 
-                    <Source id="bounding-box" type="geojson" data={Box}>
-                      <Layer
-                        {...BoxLayer}
-                        layout={{
-                          visibility: event?.slide === 6 ? "visible" : "none",
-                        }}
-                      />
+                    <Source id="bounding-box" type="geojson" data={boundingBox}>
+                      <Layer {...BoxLayer} />
                     </Source>
 
                     <NavigationControl position="top-right" />

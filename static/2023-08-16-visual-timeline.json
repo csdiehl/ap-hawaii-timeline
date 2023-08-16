@@ -78,12 +78,7 @@
     "category": "Official alert",
     "visual": "Highlight areas of Kelawea Mauka Subdivision with a transition to satellite image of destruction that Keller can provide",
     "visual_link": null,
-    "location": [
-      20.881612185894312,
-      -156.67757920344687,
-      20.883483856016912,
-      -156.66755047398604
-    ],
+    "location": [-156.667, 20.883483856016912, -156.6, 20.881612185894312],
     "lat": "",
     "lng": "",
     "zoom": 11
@@ -112,10 +107,8 @@
     "visual": "Highlight areas",
     "visual_link": null,
     "location": [
-      20.860437663285378,
-      -156.66231252427346,
-      20.831433234532707,
-      -156.63863255928243
+      -156.66231252427346, 20.831433234532707, -156.63863255928243,
+      20.860437663285378
     ],
     "lat": "",
     "lng": "",
@@ -178,7 +171,7 @@
     "zoom": 18
   },
   {
-    "slide": 14,
+    "slide": 13,
     "date": "2023-08-09",
     "approx_local_time": null,
     "title": "The first day after",

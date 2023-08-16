@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.6",
+    "@turf/bbox-polygon": "^6.5.0",
     "ap-embed": "^1.1.0",
     "ap-interactive-assets": "^1.2.1",
     "ap-interactives-plumbing": "^1.0.10",
