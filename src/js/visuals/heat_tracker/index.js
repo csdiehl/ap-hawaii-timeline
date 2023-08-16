@@ -6,11 +6,17 @@ import styled from "styled-components"
 import Buttons from "../../components/Buttons"
 import InfoBox from "../../components/InfoBox"
 import Timeline from "../../components/Timeline"
-import { BoxLayer, hotspots } from "../../components/MapStyles"
+import {
+  BoxLayer,
+  hotspots,
+  sirens,
+  solarSiren,
+} from "../../components/MapStyles"
 import Pin from "../../components/Pin"
 import { initialViewState, styleEnum } from "../../components/settings"
 import { dateToUTC } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
+import sirensData from "./sirens.json"
 
 const Container = styled.div`
   height: 700px;
@@ -32,6 +38,7 @@ function HeatTracker() {
   const n = timelineData?.length
   const formattedDate = dateToUTC(event?.date)
   const boundingBox = event?.location && bboxPolygon(event.location)
+  const showSirens = event && event.title.includes("siren")
 
   function advanceEvent() {
     setCurrentIndex((prev) => {
@@ -70,13 +77,13 @@ function HeatTracker() {
   }
 
   useEffect(() => {
-    async function getData() {
-      const res = await fetch(eventsURL)
+    async function getData(url) {
+      const res = await fetch(url)
       const json = await res.json()
       return json
     }
 
-    getData().then((data) => setTimelineData(data))
+    getData(eventsURL).then((data) => setTimelineData(data))
   }, [])
 
   return (
@@ -100,6 +107,19 @@ function HeatTracker() {
                     filter={["<=", ["get", "acq_date"], formattedDate]}
                   ></Layer>
                 </Source>
+                <Source id="sirens-data" type="geojson" data={sirensData}>
+                  <Layer
+                    {...sirens}
+                    layout={{ visibility: showSirens ? "visible" : "none" }}
+                  />
+                  <Layer
+                    {...solarSiren}
+                    layout={{
+                      visibility: event?.slide === 5 ? "visible" : "none",
+                    }}
+                    filter={["==", ["get", "Solar"], "YES"]}
+                  />
+                </Source>
                 {currentIndex >= 0 && (
                   <>
                     <Marker latitude={event?.lat} longitude={event?.lng}>
@@ -109,12 +129,11 @@ function HeatTracker() {
                     <Source id="bounding-box" type="geojson" data={boundingBox}>
                       <Layer {...BoxLayer} />
                     </Source>
-
-                    <NavigationControl position="top-right" />
                   </>
                 )}
               </>
             )}
+            <NavigationControl position="top-right" />
           </Map>
           <Buttons goForward={advanceEvent} goBack={goBack} />
           <Timeline index={currentIndex} nEvents={n} />

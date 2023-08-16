@@ -23,3 +23,29 @@ export const BoxLayer = {
     "line-color": primaryColor,
   },
 }
+
+export const sirens = {
+  id: "sirens-layer",
+  source: "sirens-data",
+  type: "circle",
+  paint: {
+    "circle-color": "red",
+    "circle-stroke-opacity": 0.3,
+    "circle-stroke-width": 10,
+    "circle-stroke-color": "red",
+    "circle-radius": 4,
+  },
+}
+
+export const solarSiren = {
+  id: "sirens-layer-solar",
+  source: "sirens-data",
+  type: "circle",
+  paint: {
+    "circle-color": "blue",
+    "circle-stroke-opacity": 0.3,
+    "circle-stroke-width": 10,
+    "circle-stroke-color": "blue",
+    "circle-radius": 4,
+  },
+}

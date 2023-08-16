@@ -20,7 +20,7 @@
     "title": "Second fire ignites in Lahaina",
     "what": "<p>An 90 minutes after power goes out across west Maui, a small brush fire starts in Lahaina, <a href=\"https://apnews.com/article/hawaii-wildfires-maui-electricity-power-utilities-c46a106db3c5019ac835ddcb01fde25f\" target=\"_blank\">reportedly near the Lāhainā Intermediate School</a> along Lahainaluna Road. Dubbed the Lahaina fire, it forces part of a neighborhood to temporarily evacuate to a civic center on the north side of town. Authorities declare the fire fully contained by about 9 a.m. at a size of about 3 acres. However, officials warn that the high winds brought by Hurricane Dora will continue, making the area a high fire risk.</p>",
     "category": "Fire origin",
-    "visual": "NASA Hot Spot Map/Image/Map point",
+    "visual": "Map point",
     "visual_link": null,
     "location": null,
     "lat": 20.88506964,
@@ -50,12 +50,7 @@
     "category": "",
     "visual": "all-lahaina-outdoor-sirens.geojson file",
     "visual_link": "",
-    "location": [
-      -156.6871864,
-      20.857479,
-      -156.664895,
-      20.9067472
-    ],
+    "location": [-156.6871864, 20.857479, -156.664895, 20.9067472],
     "lat": "",
     "lng": "",
     "zoom": 17
@@ -69,12 +64,7 @@
     "category": "",
     "visual": "solar-lahaina-outdoor-sirens.geojson file",
     "visual_link": "",
-    "location": [
-      -156.6871864,
-      20.857479,
-      -156.664895,
-      20.9067472
-    ],
+    "location": [-156.6871864, 20.857479, -156.664895, 20.9067472],
     "lat": "",
     "lng": "",
     "zoom": 17
@@ -116,12 +106,7 @@
     "category": "Official alert",
     "visual": "Highlight areas of Kelawea Mauka Subdivision with a transition to satellite image of destruction that Keller can provide",
     "visual_link": null,
-    "location": [
-      -156.677292,
-      20.87773,
-      -156.666047,
-      20.886319
-    ],
+    "location": [-156.677292, 20.87773, -156.666047, 20.886319],
     "lat": "",
     "lng": "",
     "zoom": 11
@@ -149,12 +134,7 @@
     "category": "Evacuations\nRoad Closures",
     "visual": "Highlight areas",
     "visual_link": null,
-    "location": [
-      -156.669775,
-      20.856828,
-      -156.65853,
-      20.865419
-    ],
+    "location": [-156.669775, 20.856828, -156.65853, 20.865419],
     "lat": "",
     "lng": "",
     "zoom": 11
@@ -208,7 +188,7 @@
     "title": "Placeholder here",
     "what": "<p>Housemates Richy Palalay, Mele Tasini, Adam Eichholz evacuate from their home after they said the fire was right across the street. No one told them to evacuate but they saw embers flying down like fireflies so left. They went to a friend’s house but as soon as they got there, the police told them they needed to go to the Lahaina Civic Center.</p>\n\n<p>After just 5 minutes everyone begins to evacuate. The group hitchhikes to a supermarket and then to Maui Prep, a private school.</p>",
     "category": "Eyewitness",
-    "visual": "Map point with a transition to satellite image of destruction that Keller can provide",
+    "visual": "Map point",
     "visual_link": null,
     "location": null,
     "lat": 20.88592624,
@@ -222,7 +202,7 @@
     "title": "The first day after",
     "what": "<p>Come the next day Lahaina is an ashen wasteland of death, burned-out cars blocking both lanes of narrow Front Street. The scope of the devastation begins to grow clear.</p>\n\n<p>Within two days of recovery efforts, Front Street is bulldozed open, presumably because the remains of those who died there have all been identified and collected. XXX number of people remain unaccounted for.</p>",
     "category": "Summary",
-    "visual": "Map point with a transition to satellite image of destruction that Keller can provide",
+    "visual": "Map point",
     "visual_link": null,
     "location": null,
     "lat": 20.880485,
