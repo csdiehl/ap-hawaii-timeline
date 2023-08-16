@@ -80,7 +80,6 @@ function HeatTracker() {
         essential: true,
       })
     } else if (location) {
-      console.log(location)
       map.fitBounds(location, {
         padding: 40,
         essential: true,
@@ -97,8 +96,6 @@ function HeatTracker() {
 
     getData(eventsURL).then((data) => setTimelineData(data))
   }, [])
-
-  console.log("location", event?.location)
 
   return (
     <Container ref={containerRef}>

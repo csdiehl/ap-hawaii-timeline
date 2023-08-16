@@ -61,28 +61,27 @@ const formatDate = (dateString) => {
 const InfoBox = ({ data, currentIndex }) => {
   const mounted = useIsMounted()
 
-  console.log(mounted.current)
+  console.log("data:", data, "idx", currentIndex, "mounted", mounted.current)
 
   return (
     <>
-      {mounted &&
-        data.map((d, i) => (
-          <Container id="current-message" show={currentIndex === i} key={i}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title>{d.title}</Title>
-            </div>
-            <Text style={{ color: "lightgrey" }}>
-              <strong style={{ color: primaryColor }}>
-                {d.approx_local_time}
-              </strong>
-              , {formatDate(d.date)}
-            </Text>
-            <Text
-              dangerouslySetInnerHTML={{ __html: d.what }}
-              style={{ marginTop: "16px" }}
-            ></Text>
-          </Container>
-        ))}
+      {data.map((d, i) => (
+        <Container id="current-message" show={currentIndex === i} key={i}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Title>{d.title}</Title>
+          </div>
+          <Text style={{ color: "lightgrey" }}>
+            <strong style={{ color: primaryColor }}>
+              {d.approx_local_time}
+            </strong>
+            , {formatDate(d.date)}
+          </Text>
+          <Text
+            dangerouslySetInnerHTML={{ __html: d.what }}
+            style={{ marginTop: "16px" }}
+          ></Text>
+        </Container>
+      ))}
     </>
   )
 }
@@ -92,4 +91,4 @@ InfoBox.propTypes = {
   currentIndex: PropTypes.number,
 }
 
-export default InfoBox
+export default React.memo(InfoBox)
