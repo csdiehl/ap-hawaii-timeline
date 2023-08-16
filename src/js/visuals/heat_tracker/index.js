@@ -31,6 +31,9 @@ function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [mapLoaded, setMapLoaded] = useState(false)
+
+  const [zoomLevel, setZoomLevel] = useState(null)
+
   const containerRef = useRef()
   const mapRef = useRef()
 
@@ -92,6 +95,7 @@ function HeatTracker() {
         <>
           <InfoBox currentIndex={currentIndex} data={timelineData} />
           <Map
+            onZoomEnd={(evt) => setZoomLevel(evt.viewState.zoom)}
             attributionControl={false}
             onLoad={() => setMapLoaded(true)}
             mapLib={maplibre}
@@ -139,6 +143,7 @@ function HeatTracker() {
           <Timeline index={currentIndex} nEvents={n} />
         </>
       )}
+      <p>Zoom Level: {zoomLevel}</p>
     </Container>
   )
 }
