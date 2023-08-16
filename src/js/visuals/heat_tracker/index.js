@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 
 const hotspotURL = "./hawaii_hotspots_8.15.json"
-const eventsURL = "./2023-08-16-visual-timeline.json"
+const eventsURL = "./visual-timeline_8.16.json"
 
 function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
@@ -32,8 +32,6 @@ function HeatTracker() {
   const n = timelineData?.length
   const formattedDate = dateToUTC(event?.date)
   const boundingBox = event?.location && bboxPolygon(event.location)
-
-  console.log(boundingBox)
 
   function advanceEvent() {
     setCurrentIndex((prev) => {

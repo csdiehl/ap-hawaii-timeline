@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
-import { Text, Title, breakpoints } from "./settings"
+import { Text, Title, breakpoints, primaryColor } from "./settings"
 import PropTypes from "prop-types"
 
 const slideUp = keyframes`
@@ -46,13 +46,14 @@ const Container = styled.div`
   }
 `
 
-const formatDate = (dateString) =>
-  new Date(dateString).toLocaleDateString("en-US", {
+const formatDate = (dateString) => {
+  return new Date(`${dateString}T01:00:00.000`).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   })
+}
 
 const InfoBox = ({ data, currentIndex }) => {
   return (
@@ -62,7 +63,12 @@ const InfoBox = ({ data, currentIndex }) => {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Title>{d.title}</Title>
           </div>
-          <Text style={{ color: "lightgrey" }}>{formatDate(d.date)}</Text>
+          <Text style={{ color: "lightgrey" }}>
+            <strong style={{ color: primaryColor }}>
+              {d.approx_local_time}
+            </strong>
+            , {formatDate(d.date)}
+          </Text>
           <Text
             dangerouslySetInnerHTML={{ __html: d.what }}
             style={{ marginTop: "16px" }}
