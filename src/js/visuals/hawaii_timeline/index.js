@@ -36,6 +36,7 @@ const Container = styled.div`
   position: relative;
   max-width: 1300px;
   margin: 0 auto;
+  overflow: hidden;
 `
 
 const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
