@@ -6,7 +6,7 @@ import { breakpoints } from "./settings"
 
 const Container = styled.div`
   ${AbsolutePos};
-  top: 50%;
+  top: 60%;
   left: 0;
   width: 100%;
   display: flex;
@@ -29,6 +29,7 @@ const Button = styled.button`
   cursor: pointer;
   pointer-events: all;
   transition: background 200ms ease-in;
+  visibility: ${(props) => (props.timelineStarted ? "visible" : "hidden")};
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -50,15 +51,15 @@ const Buttons = ({ goForward, goBack, timelineStarted }) => {
     <Container>
       {
         <Button
-          style={{ visibility: timelineStarted ? "visible" : "hidden" }}
+          timelineStarted={timelineStarted}
           disabled={!timelineStarted}
           onClick={goBack}
         >
-          <Arrow alt="backward" src="./arrow-left.svg" />
+          <Arrow alt="backward" src="../arrow-left.svg" />
         </Button>
       }
-      <Button onClick={goForward}>
-        <Arrow alt="forward" src="./arrow-right.svg" />
+      <Button timelineStarted={timelineStarted} onClick={goForward}>
+        <Arrow alt="forward" src="../arrow-right.svg" />
       </Button>
     </Container>
   )

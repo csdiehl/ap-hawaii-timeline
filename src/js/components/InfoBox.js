@@ -52,8 +52,8 @@ const Container = styled.div`
 const formatDate = (dateString) => {
   return new Date(`${dateString}T01:00:00.000`).toLocaleDateString("en-US", {
     weekday: "long",
-    year: "numeric",
-    month: "long",
+    year: undefined,
+    month: "short",
     day: "numeric",
   })
 }
@@ -71,8 +71,8 @@ const InfoBox = ({ data, currentIndex }) => {
           <Text style={{ color: "lightgrey" }}>
             <strong style={{ color: primaryColor }}>
               {d.approx_local_time}
-            </strong>
-            , {formatDate(d.date)}
+            </strong>{" "}
+            {formatDate(d.date)}
           </Text>
           <Text
             dangerouslySetInnerHTML={{ __html: d.what }}
