@@ -10,6 +10,7 @@ import {
   BoxLayer,
   hotspots,
   mask,
+  satelliteImage,
   sirens,
   solarSiren,
 } from "../../components/MapStyles"
@@ -20,6 +21,7 @@ import {
   hotspotURL,
   eventsURL,
   sirensURL,
+  satelliteDamageURL,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -106,6 +108,7 @@ function HeatTracker() {
           <InfoBox currentIndex={currentIndex} data={timelineData} />
 
           <Map
+            style={{ borderRadius: "5px" }}
             onZoomEnd={(evt) => setZoomLevel(evt.viewState.zoom)}
             attributionControl={false}
             onLoad={() => setMapLoaded(true)}
@@ -137,9 +140,24 @@ function HeatTracker() {
                 </Source>
                 {currentIndex >= 0 && (
                   <>
-                    <Marker latitude={event?.lat} longitude={event?.lng}>
-                      <Pin show={event?.visual === "Map point"} />
-                    </Marker>
+                    <Source
+                      id="satellite-image"
+                      type="image"
+                      url={satelliteDamageURL}
+                      coordinates={[
+                        [-156.678434814775, 20.8882317758389],
+                        [-156.665923406183, 20.8882317758389],
+                        [-156.665923406183, 20.8766726059343],
+                        [-156.678434814775, 20.8766726059343],
+                      ]}
+                    >
+                      <Layer
+                        {...satelliteImage}
+                        layout={{
+                          visibility: currentIndex >= 5 ? "visible" : "none",
+                        }}
+                      />
+                    </Source>
 
                     <Source id="masked-area" type="geojson" data={maskedArea}>
                       <Layer
@@ -158,6 +176,15 @@ function HeatTracker() {
                         }}
                       />
                     </Source>
+
+                    <Marker latitude={event?.lat} longitude={event?.lng}>
+                      <Pin
+                        show={
+                          event?.visual === "Map point" ||
+                          event?.category === "Eyewitness"
+                        }
+                      />
+                    </Marker>
                   </>
                 )}
               </>

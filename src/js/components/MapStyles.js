@@ -59,3 +59,13 @@ export const mask = {
     "fill-opacity": 0.5,
   },
 }
+
+export const satelliteImage = {
+  id: "satellite-image-layer",
+  source: "satellite-image",
+  type: "raster",
+  paint: {
+    "raster-fade-duration": 500,
+    "raster-opacity": 0.7,
+  },
+}
