@@ -7,12 +7,14 @@ export const hotspotURL = `${s3Bucket}hawaii_hotspots_8.15.json`
 export const eventsURL = `${s3Bucket}visual-timeline.json`
 export const sirensURL = `${s3Bucket}all-lahaina-outdoor-sirens.geojson`
 export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-box.png`
+export const finalImageURL = `${s3Bucket}overview-damage-zoomed-out.png`
 
 export const slideTransitions = {
   orangeMarkers: [1, 2],
   loadSirenData: [2, 4],
   shiftBBox: [2, 3, 8],
   showSatellite: 5,
+  showFinalImage: 14,
 }
 
 export const initialViewState = {

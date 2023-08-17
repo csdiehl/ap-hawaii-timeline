@@ -25,6 +25,7 @@ import {
   slideTransitions,
   primaryColor,
   Text,
+  finalImageURL,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -192,7 +193,33 @@ function HeatTracker() {
                         {...satelliteImage}
                         layout={{
                           visibility:
-                            currentIndex >= slideTransitions.showSatellite
+                            currentIndex >= slideTransitions.showSatellite &&
+                            currentIndex < slideTransitions.showFinalImage
+                              ? "visible"
+                              : "none",
+                        }}
+                      />
+                    </Source>
+
+                    <Source
+                      id="satellite-image-2"
+                      type="image"
+                      url={finalImageURL}
+                      coordinates={[
+                        [-156.691296337004, 20.9027787949499],
+                        [-156.655481805856, 20.9027787949499],
+                        [-156.655481805856, 20.8528030433481],
+                        [-156.691296337004, 20.8528030433481],
+                      ]}
+                    >
+                      <Layer
+                        {...{
+                          ...satelliteImage,
+                          id: "satellite-image-layer-2",
+                        }}
+                        layout={{
+                          visibility:
+                            currentIndex >= slideTransitions.showFinalImage
                               ? "visible"
                               : "none",
                         }}
