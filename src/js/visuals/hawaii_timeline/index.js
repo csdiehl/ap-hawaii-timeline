@@ -24,19 +24,29 @@ import {
   satelliteDamageURL,
   slideTransitions,
   primaryColor,
+  Text,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
 import difference from "@turf/difference"
 import TitleBlock from "../../components/TitleBlock"
+import { AbsolutePos } from "../../components/mixins"
 
 const Container = styled.div`
-  height: 700px;
+  height: 720px;
   width: 100%;
   position: relative;
   max-width: 1300px;
   margin: 0 auto;
   overflow: hidden;
+`
+
+const Credit = styled(Text)`
+  ${AbsolutePos};
+  left: 16px;
+  bottom: 8px;
+  font-size: 0.75rem;
+  color: lightgrey;
 `
 
 const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
@@ -94,6 +104,7 @@ function HeatTracker() {
         center: [lng, lat],
         zoom: zoom,
         essential: true,
+        speed: 0.5,
       })
     } else if (location) {
       const shiftPadding = slideTransitions.shiftBBox.includes(currentIndex),
@@ -208,6 +219,11 @@ function HeatTracker() {
 
                     <Marker latitude={event?.lat} longitude={event?.lng}>
                       <Pin
+                        color={
+                          slideTransitions.orangeMarkers.includes(currentIndex)
+                            ? primaryColor
+                            : "#FFF"
+                        }
                         show={
                           event?.visual === "Map point" ||
                           event?.category === "Eyewitness"
@@ -234,7 +250,10 @@ function HeatTracker() {
               </>
             )}
             {window.innerWidth >= 425 && (
-              <NavigationControl position="top-right" />
+              <NavigationControl
+                style={{ backgroundColor: "darkgrey" }}
+                position="top-right"
+              />
             )}
           </Map>
           <Buttons
@@ -246,6 +265,10 @@ function HeatTracker() {
         </>
       )}
       <p>Zoom Level: {zoomLevel}</p>
+      <Credit>
+        Graphic: Caleb Diehl, Chris Keller, Story: Rebecca Boone, Data: Maxar,
+        ESRI, built with Maplibre
+      </Credit>
     </Container>
   )
 }

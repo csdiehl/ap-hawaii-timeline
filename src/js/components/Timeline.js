@@ -13,7 +13,7 @@ const Container = styled.div`
   bottom: 0;
   left: 50%;
   width: 90%;
-  margin: 16px auto;
+  margin: 0px auto 48px;
   transform: translateX(-50%);
 `
 
