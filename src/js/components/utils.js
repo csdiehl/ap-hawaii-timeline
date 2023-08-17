@@ -12,3 +12,9 @@ export function dateToUTC(dateString) {
 
   return utc
 }
+
+export async function getData(url) {
+  const res = await fetch(url)
+  const json = await res.json()
+  return json
+}

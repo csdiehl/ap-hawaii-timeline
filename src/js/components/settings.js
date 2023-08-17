@@ -1,9 +1,12 @@
 import styled from "styled-components"
 
-const s3Bucket = "https://s3.amazonaws.com/data.ap.org/"
+const s3Bucket =
+  "https://s3.amazonaws.com/data.ap.org/west-maui-wildfires-timeline/"
 
 export const hotspotURL = `${s3Bucket}hawaii_hotspots_8.15.json`
-export const eventsURL = "./visual-timeline_8.16.json"
+export const eventsURL = `${s3Bucket}visual-timeline.json`
+export const sirensURL = `${s3Bucket}all-lahaina-outdoor-sirens.geojson`
+export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-box.png`
 
 export const initialViewState = {
   latitude: 20,
@@ -16,14 +19,6 @@ export const initialViewState = {
 export const primaryColor = "#F9C16D"
 
 export const styleEnum = "ef0fe5a4221944c090fb642fa80c83e7"
-
-//  "42410a35dc9445eeb65d10da1a5f62f0"
-
-export const citiesLink =
-  "https://s3.amazonaws.com/data.ap.org/projects/2023/cfs/data/processed/cities_stations.json"
-
-export const tempsLink =
-  "https://s3.amazonaws.com/data.ap.org/projects/2023/cfs/data/processed/latest_station_temps.json"
 
 // design system styles
 export const Title = styled.h1`

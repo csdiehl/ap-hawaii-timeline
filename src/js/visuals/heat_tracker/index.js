@@ -19,11 +19,11 @@ import {
   styleEnum,
   hotspotURL,
   eventsURL,
+  sirensURL,
 } from "../../components/settings"
-import { dateToUTC } from "../../components/utils"
+import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
 import difference from "@turf/difference"
-import sirensData from "./sirens.json"
 import TitleBlock from "../../components/TitleBlock"
 
 const Container = styled.div`
@@ -36,6 +36,7 @@ const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
 
 function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
+  const [sirensData, setSirensData] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [mapLoaded, setMapLoaded] = useState(false)
 
@@ -88,14 +89,14 @@ function HeatTracker() {
   }
 
   useEffect(() => {
-    async function getData(url) {
-      const res = await fetch(url)
-      const json = await res.json()
-      return json
-    }
-
     getData(eventsURL).then((data) => setTimelineData(data))
   }, [])
+
+  //fetch sirens lazily
+  useEffect(() => {
+    if ((currentIndex === 2 || currentIndex === 4) && sirensData === null)
+      getData(sirensURL).then((data) => setSirensData(data))
+  }, [currentIndex, sirensData])
 
   return (
     <Container ref={containerRef}>

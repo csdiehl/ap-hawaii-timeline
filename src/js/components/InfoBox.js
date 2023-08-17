@@ -61,8 +61,6 @@ const formatDate = (dateString) => {
 const InfoBox = ({ data, currentIndex }) => {
   const mounted = useIsMounted()
 
-  console.log("data:", data, "idx", currentIndex, "mounted", mounted.current)
-
   return (
     <>
       {data.map((d, i) => (
