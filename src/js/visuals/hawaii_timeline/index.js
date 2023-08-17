@@ -73,6 +73,14 @@ function HeatTracker() {
     })
   }
 
+  const checkKey = (e) => {
+    if (e.code == "ArrowLeft") {
+      goBack()
+    } else if (e.code == "ArrowRight") {
+      advanceEvent()
+    }
+  }
+
   function transitionMap(n) {
     const { current: map } = mapRef
     if (!map || !timelineData) return
@@ -103,7 +111,7 @@ function HeatTracker() {
   }, [currentIndex, sirensData])
 
   return (
-    <Container ref={containerRef}>
+    <Container ref={containerRef} onKeyDown={(e) => checkKey(e)}>
       {currentIndex < 0 && <TitleBlock advanceEvent={advanceEvent} />}
       {timelineData && (
         <>
