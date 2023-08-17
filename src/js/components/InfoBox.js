@@ -28,6 +28,19 @@ const Container = styled.div`
   }
 `
 
+const Legend = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`
+
+const Dot = styled.div`
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background-color: ${primaryColor};
+`
+
 const formatDate = (dateString) => {
   return new Date(`${dateString}T01:00:00.000`).toLocaleDateString("en-US", {
     weekday: "long",
@@ -61,6 +74,16 @@ const InfoBox = ({ data, currentIndex }) => {
             dangerouslySetInnerHTML={{ __html: d.what }}
             style={{ marginTop: "16px" }}
           ></Text>
+          {[1, 5].includes(d.slide) && (
+            <Legend>
+              <Dot />
+              <Text>
+                {d.slide === 1
+                  ? "Satellite-detected Hotspots"
+                  : "Solar-powered sirens"}
+              </Text>
+            </Legend>
+          )}
         </Container>
       ))}
     </>
