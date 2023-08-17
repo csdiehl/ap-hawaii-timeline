@@ -8,6 +8,12 @@ export const eventsURL = `${s3Bucket}visual-timeline.json`
 export const sirensURL = `${s3Bucket}all-lahaina-outdoor-sirens.geojson`
 export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-box.png`
 
+export const slideTransitions = {
+  loadSirenData: [2, 4],
+  shiftBBox: [2, 3, 8],
+  showSatellite: 5,
+}
+
 export const initialViewState = {
   latitude: 20,
   longitude: -157,

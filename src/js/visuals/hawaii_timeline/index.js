@@ -22,6 +22,8 @@ import {
   eventsURL,
   sirensURL,
   satelliteDamageURL,
+  slideTransitions,
+  primaryColor,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -54,7 +56,7 @@ function HeatTracker() {
   const formattedDate = dateToUTC(event?.date)
   const boundingBox = event?.location && bboxPolygon(event.location)
   const maskedArea = boundingBox && difference(hawaiiArea, boundingBox)
-  const showSirens = event && event.title.includes("siren")
+  const showSirens = event && event.what.includes("siren")
   const timelineStarted = currentIndex >= 0
 
   function advanceEvent() {
@@ -93,8 +95,18 @@ function HeatTracker() {
         essential: true,
       })
     } else if (location) {
+      const shiftPadding = slideTransitions.shiftBBox.includes(currentIndex),
+        padLeft = window.innerWidth >= 600
+
       map.fitBounds(location, {
-        padding: 40,
+        padding: shiftPadding
+          ? {
+              left: padLeft ? 300 : 20,
+              top: padLeft ? 20 : 200,
+              right: 20,
+              bottom: 20,
+            }
+          : 40,
         essential: true,
       })
     }
@@ -106,7 +118,10 @@ function HeatTracker() {
 
   //fetch sirens lazily
   useEffect(() => {
-    if ((currentIndex === 2 || currentIndex === 4) && sirensData === null)
+    if (
+      slideTransitions.loadSirenData.includes(currentIndex) &&
+      sirensData === null
+    )
       getData(sirensURL).then((data) => setSirensData(data))
   }, [currentIndex, sirensData])
 
@@ -148,7 +163,7 @@ function HeatTracker() {
                     filter={["==", ["get", "Solar"], "YES"]}
                   />
                 </Source>
-                {currentIndex >= 0 && (
+                {timelineStarted && (
                   <>
                     <Source
                       id="satellite-image"
@@ -164,7 +179,10 @@ function HeatTracker() {
                       <Layer
                         {...satelliteImage}
                         layout={{
-                          visibility: currentIndex >= 5 ? "visible" : "none",
+                          visibility:
+                            currentIndex >= slideTransitions.showSatellite
+                              ? "visible"
+                              : "none",
                         }}
                       />
                     </Source>
@@ -195,6 +213,21 @@ function HeatTracker() {
                         }
                       />
                     </Marker>
+
+                    {event?.secondaryPoint && (
+                      <Marker
+                        latitude={event.secondaryPoint[0]}
+                        longitude={event.secondaryPoint[1]}
+                      >
+                        <Pin
+                          color={primaryColor}
+                          show={
+                            event?.visual === "Map point" ||
+                            event?.category === "Eyewitness"
+                          }
+                        />
+                      </Marker>
+                    )}
                   </>
                 )}
               </>
