@@ -205,7 +205,7 @@ function HeatTracker() {
                       layout={{
                         visibility:
                           currentIndex >= slideTransitions.showSatellite &&
-                          currentIndex < slideTransitions.showFinalImage
+                          currentIndex < slideTransitions.showFinalImage[1]
                             ? "visible"
                             : "none",
                       }}
