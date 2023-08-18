@@ -23,15 +23,15 @@ export const slideTransitions = {
   loadSirenData: [2, 4],
   shiftBBox: [2, 3, 8],
   showSatellite: 5,
-  showFinalImage: 14,
+  showFinalImage: [-1, 14],
   showRoads: [1, 2, 5, 8, 9, 10, 14],
   showBarricades: 9,
 }
 
 export const initialViewState = {
   latitude: 20.880485,
-  longitude: -156.776641,
-  zoom: 8,
+  longitude: -156.676641,
+  zoom: 14,
   bearing: 0,
   pitch: 0,
 }

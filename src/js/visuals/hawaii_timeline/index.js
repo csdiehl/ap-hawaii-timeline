@@ -1,11 +1,12 @@
+import bboxPolygon from "@turf/bbox-polygon"
+import difference from "@turf/difference"
 import maplibre from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
 import React, { useRef, useState } from "react"
-import Map, { Layer, Marker, NavigationControl, Source } from "react-map-gl"
+import Map, { Layer, Marker, Source } from "react-map-gl"
 import styled from "styled-components"
 import Buttons from "../../components/Buttons"
 import InfoBox from "../../components/InfoBox"
-import Timeline from "../../components/Timeline"
 import {
   BoxLayer,
   barricades,
@@ -19,29 +20,28 @@ import {
   solarSiren,
 } from "../../components/MapStyles"
 import Pin from "../../components/Pin"
-import {
-  initialViewState,
-  styleEnum,
-  hotspotURL,
-  eventsURL,
-  sirensURL,
-  satelliteDamageURL,
-  slideTransitions,
-  primaryColor,
-  Text,
-  finalImageURL,
-  roadsURL,
-  breakpoints,
-  barricadesURL,
-  sirenColor,
-  damageURL,
-} from "../../components/settings"
-import { dateToUTC, getData } from "../../components/utils"
-import bboxPolygon from "@turf/bbox-polygon"
-import difference from "@turf/difference"
+import Timeline from "../../components/Timeline"
 import TitleBlock from "../../components/TitleBlock"
 import { AbsolutePos } from "../../components/mixins"
+import {
+  Text,
+  barricadesURL,
+  breakpoints,
+  damageURL,
+  eventsURL,
+  finalImageURL,
+  hotspotURL,
+  initialViewState,
+  primaryColor,
+  roadsURL,
+  satelliteDamageURL,
+  sirenColor,
+  sirensURL,
+  slideTransitions,
+  styleEnum,
+} from "../../components/settings"
 import useData from "../../components/useData"
+import { dateToUTC } from "../../components/utils"
 
 const Container = styled.div`
   height: 720px;
@@ -162,6 +162,31 @@ function HeatTracker() {
             mapStyle={`https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`}
           >
             <>
+              <Source
+                id="satellite-image-2"
+                type="image"
+                url={finalImageURL}
+                coordinates={[
+                  [-156.691296337004, 20.9027787949499],
+                  [-156.655481805856, 20.9027787949499],
+                  [-156.655481805856, 20.8528030433481],
+                  [-156.691296337004, 20.8528030433481],
+                ]}
+              >
+                <Layer
+                  {...{
+                    ...satelliteImage,
+                    id: "satellite-image-layer-2",
+                  }}
+                  layout={{
+                    visibility: slideTransitions.showFinalImage.includes(
+                      currentIndex
+                    )
+                      ? "visible"
+                      : "none",
+                  }}
+                />
+              </Source>
               {timelineStarted && (
                 <>
                   <Source
@@ -181,31 +206,6 @@ function HeatTracker() {
                         visibility:
                           currentIndex >= slideTransitions.showSatellite &&
                           currentIndex < slideTransitions.showFinalImage
-                            ? "visible"
-                            : "none",
-                      }}
-                    />
-                  </Source>
-
-                  <Source
-                    id="satellite-image-2"
-                    type="image"
-                    url={finalImageURL}
-                    coordinates={[
-                      [-156.691296337004, 20.9027787949499],
-                      [-156.655481805856, 20.9027787949499],
-                      [-156.655481805856, 20.8528030433481],
-                      [-156.691296337004, 20.8528030433481],
-                    ]}
-                  >
-                    <Layer
-                      {...{
-                        ...satelliteImage,
-                        id: "satellite-image-layer-2",
-                      }}
-                      layout={{
-                        visibility:
-                          currentIndex >= slideTransitions.showFinalImage
                             ? "visible"
                             : "none",
                       }}
@@ -314,13 +314,6 @@ function HeatTracker() {
                 </>
               )}
             </>
-
-            {window.innerWidth >= 425 && (
-              <NavigationControl
-                style={{ backgroundColor: "darkgrey" }}
-                position="top-right"
-              />
-            )}
           </Map>
           <Buttons
             timelineStarted={timelineStarted}
