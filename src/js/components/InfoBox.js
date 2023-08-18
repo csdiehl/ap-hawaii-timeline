@@ -20,15 +20,15 @@ const Container = styled.div`
       ${(props) => (!props.show ? "" : "500ms")},
     transform 500ms ease-in-out ${(props) => (!props.show ? "" : "500ms")};
 
-  @media (${breakpoints.mobile}) {
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-
   @media (${breakpoints.tablet}) {
     top: 8px;
     left: 8px;
+  }
+
+  @media (${breakpoints.mobile}) {
+    top: 0px;
+    left: 0px;
+    width: 100%;
   }
 `
 

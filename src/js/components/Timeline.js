@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { AbsolutePos } from "./mixins"
 import PropTypes from "prop-types"
+import { breakpoints } from "./settings"
 
 const dotStyles = `
  background: #fff;
@@ -10,11 +11,15 @@ border-radius: 50%;
 
 const Container = styled.div`
   ${AbsolutePos};
-  bottom: 0;
+  bottom: 48px;
   left: 50%;
   width: 90%;
-  margin: 0px auto 48px;
+  margin: 0px auto;
   transform: translateX(-50%);
+
+  @media (${breakpoints.mobile}) {
+    bottom: 64px;
+  }
 `
 
 const Bar = styled.div`
