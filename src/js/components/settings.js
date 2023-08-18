@@ -19,7 +19,7 @@ export const barricadesURL = `${s3Bucket}blocks-and-barricades.geojson`
 export const damageURL = `${s3Bucket}lahiana-damage-assessment.json`
 
 export const slideTransitions = {
-  orangeMarkers: [],
+  orangeMarkers: [1],
   loadSirenData: [2, 4],
   shiftBBox: [2, 3, 8],
   showSatellite: 5,
