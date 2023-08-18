@@ -8,6 +8,7 @@ export const eventsURL = `${s3Bucket}visual-timeline.json`
 export const sirensURL = `${s3Bucket}all-lahaina-outdoor-sirens.geojson`
 export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-box.png`
 export const finalImageURL = `${s3Bucket}overview-damage-zoomed-out.png`
+export const roadsURL = `${s3Bucket}lahaina_roads.json`
 
 export const slideTransitions = {
   orangeMarkers: [1, 2],
@@ -15,6 +16,8 @@ export const slideTransitions = {
   shiftBBox: [2, 3, 8],
   showSatellite: 5,
   showFinalImage: 14,
+  showBypassRoad: [2, 5, 9],
+  showFrontSt: [8, 9, 10],
 }
 
 export const initialViewState = {

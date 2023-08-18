@@ -8,8 +8,10 @@ import InfoBox from "../../components/InfoBox"
 import Timeline from "../../components/Timeline"
 import {
   BoxLayer,
+  highlightedRoads,
   hotspots,
   mask,
+  roadLabels,
   satelliteImage,
   sirens,
   solarSiren,
@@ -26,6 +28,7 @@ import {
   primaryColor,
   Text,
   finalImageURL,
+  roadsURL,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -54,6 +57,7 @@ const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
 
 function HeatTracker() {
   const [timelineData, setTimelineData] = useState(null)
+  const [roads, setRoads] = useState(null)
   const [sirensData, setSirensData] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [mapLoaded, setMapLoaded] = useState(false)
@@ -127,6 +131,7 @@ function HeatTracker() {
 
   useEffect(() => {
     getData(eventsURL).then((data) => setTimelineData(data))
+    getData(roadsURL).then((data) => setRoads(data))
   }, [])
 
   //fetch sirens lazily
@@ -155,127 +160,132 @@ function HeatTracker() {
             initialViewState={initialViewState}
             mapStyle={`https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`}
           >
-            {mapLoaded && (
-              <>
-                <Source id="hotspots" type="geojson" data={hotspotURL}>
-                  <Layer
-                    {...hotspots}
-                    filter={["<=", ["get", "acq_date"], formattedDate]}
-                  ></Layer>
-                </Source>
-                <Source id="sirens-data" type="geojson" data={sirensData}>
-                  <Layer
-                    {...sirens}
-                    layout={{ visibility: showSirens ? "visible" : "none" }}
-                  />
-                  <Layer
-                    {...solarSiren}
-                    layout={{
-                      visibility: event?.slide === 5 ? "visible" : "none",
-                    }}
-                    filter={["==", ["get", "Solar"], "YES"]}
-                  />
-                </Source>
-                {timelineStarted && (
-                  <>
-                    <Source
-                      id="satellite-image"
-                      type="image"
-                      url={satelliteDamageURL}
-                      coordinates={[
-                        [-156.678434814775, 20.8882317758389],
-                        [-156.665923406183, 20.8882317758389],
-                        [-156.665923406183, 20.8766726059343],
-                        [-156.678434814775, 20.8766726059343],
-                      ]}
+            <>
+              {timelineStarted && (
+                <>
+                  <Source
+                    id="satellite-image"
+                    type="image"
+                    url={satelliteDamageURL}
+                    coordinates={[
+                      [-156.678434814775, 20.8882317758389],
+                      [-156.665923406183, 20.8882317758389],
+                      [-156.665923406183, 20.8766726059343],
+                      [-156.678434814775, 20.8766726059343],
+                    ]}
+                  >
+                    <Layer
+                      {...satelliteImage}
+                      layout={{
+                        visibility:
+                          currentIndex >= slideTransitions.showSatellite &&
+                          currentIndex < slideTransitions.showFinalImage
+                            ? "visible"
+                            : "none",
+                      }}
+                    />
+                  </Source>
+
+                  <Source
+                    id="satellite-image-2"
+                    type="image"
+                    url={finalImageURL}
+                    coordinates={[
+                      [-156.691296337004, 20.9027787949499],
+                      [-156.655481805856, 20.9027787949499],
+                      [-156.655481805856, 20.8528030433481],
+                      [-156.691296337004, 20.8528030433481],
+                    ]}
+                  >
+                    <Layer
+                      {...{
+                        ...satelliteImage,
+                        id: "satellite-image-layer-2",
+                      }}
+                      layout={{
+                        visibility:
+                          currentIndex >= slideTransitions.showFinalImage
+                            ? "visible"
+                            : "none",
+                      }}
+                    />
+                  </Source>
+
+                  <Source id="roads-data" type="geojson" data={roads}>
+                    <Layer {...highlightedRoads} />
+                    <Layer {...roadLabels} />
+                  </Source>
+
+                  <Source id="masked-area" type="geojson" data={maskedArea}>
+                    <Layer
+                      {...mask}
+                      layout={{
+                        visibility: event?.location ? "visible" : "none",
+                      }}
+                    />
+                  </Source>
+
+                  <Source id="bounding-box" type="geojson" data={boundingBox}>
+                    <Layer
+                      {...BoxLayer}
+                      layout={{
+                        visibility: event?.location ? "visible" : "none",
+                      }}
+                    />
+                  </Source>
+
+                  <Source id="hotspots" type="geojson" data={hotspotURL}>
+                    <Layer
+                      {...hotspots}
+                      filter={["<=", ["get", "acq_date"], formattedDate]}
+                    ></Layer>
+                  </Source>
+                  <Source id="sirens-data" type="geojson" data={sirensData}>
+                    <Layer
+                      {...sirens}
+                      layout={{ visibility: showSirens ? "visible" : "none" }}
+                    />
+                    <Layer
+                      {...solarSiren}
+                      layout={{
+                        visibility: event?.slide === 5 ? "visible" : "none",
+                      }}
+                      filter={["==", ["get", "Solar"], "YES"]}
+                    />
+                  </Source>
+
+                  <Marker latitude={event?.lat} longitude={event?.lng}>
+                    <Pin
+                      color={
+                        slideTransitions.orangeMarkers.includes(currentIndex)
+                          ? primaryColor
+                          : "#FFF"
+                      }
+                      show={
+                        event?.visual === "Map point" ||
+                        event?.category === "Eyewitness"
+                      }
+                    />
+                  </Marker>
+
+                  {event?.secondaryPoint && (
+                    <Marker
+                      latitude={event.secondaryPoint[0]}
+                      longitude={event.secondaryPoint[1]}
                     >
-                      <Layer
-                        {...satelliteImage}
-                        layout={{
-                          visibility:
-                            currentIndex >= slideTransitions.showSatellite &&
-                            currentIndex < slideTransitions.showFinalImage
-                              ? "visible"
-                              : "none",
-                        }}
-                      />
-                    </Source>
-
-                    <Source
-                      id="satellite-image-2"
-                      type="image"
-                      url={finalImageURL}
-                      coordinates={[
-                        [-156.691296337004, 20.9027787949499],
-                        [-156.655481805856, 20.9027787949499],
-                        [-156.655481805856, 20.8528030433481],
-                        [-156.691296337004, 20.8528030433481],
-                      ]}
-                    >
-                      <Layer
-                        {...{
-                          ...satelliteImage,
-                          id: "satellite-image-layer-2",
-                        }}
-                        layout={{
-                          visibility:
-                            currentIndex >= slideTransitions.showFinalImage
-                              ? "visible"
-                              : "none",
-                        }}
-                      />
-                    </Source>
-
-                    <Source id="masked-area" type="geojson" data={maskedArea}>
-                      <Layer
-                        {...mask}
-                        layout={{
-                          visibility: event?.location ? "visible" : "none",
-                        }}
-                      />
-                    </Source>
-
-                    <Source id="bounding-box" type="geojson" data={boundingBox}>
-                      <Layer
-                        {...BoxLayer}
-                        layout={{
-                          visibility: event?.location ? "visible" : "none",
-                        }}
-                      />
-                    </Source>
-
-                    <Marker latitude={event?.lat} longitude={event?.lng}>
                       <Pin
-                        color={
-                          slideTransitions.orangeMarkers.includes(currentIndex)
-                            ? primaryColor
-                            : "#FFF"
-                        }
+                        color={primaryColor}
                         show={
                           event?.visual === "Map point" ||
                           event?.category === "Eyewitness"
                         }
                       />
                     </Marker>
+                  )}
+                </>
+              )}
+            </>
 
-                    {event?.secondaryPoint && (
-                      <Marker
-                        latitude={event.secondaryPoint[0]}
-                        longitude={event.secondaryPoint[1]}
-                      >
-                        <Pin
-                          color={primaryColor}
-                          show={
-                            event?.visual === "Map point" ||
-                            event?.category === "Eyewitness"
-                          }
-                        />
-                      </Marker>
-                    )}
-                  </>
-                )}
-              </>
-            )}
             {window.innerWidth >= 425 && (
               <NavigationControl
                 style={{ backgroundColor: "darkgrey" }}

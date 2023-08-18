@@ -69,3 +69,31 @@ export const satelliteImage = {
     "raster-opacity": 0.7,
   },
 }
+
+export const highlightedRoads = {
+  id: "roads-highlight-layer",
+  source: "roads-data",
+  type: "line",
+  paint: {
+    "line-color": primaryColor,
+    "line-width": 6,
+  },
+}
+
+export const roadLabels = {
+  id: "roads-highlight-layer-labels",
+  source: "roads-data",
+  type: "symbol",
+  layout: {
+    "symbol-placement": "line",
+    "text-field": ["get", "name"],
+    "text-font": ["Arial Regular"],
+    "text-size": 16,
+    "text-anchor": "center",
+  },
+  paint: {
+    "text-color": primaryColor,
+    "text-halo-color": "black",
+    "text-halo-width": 2,
+  },
+}
