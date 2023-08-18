@@ -36,6 +36,7 @@ import bboxPolygon from "@turf/bbox-polygon"
 import difference from "@turf/difference"
 import TitleBlock from "../../components/TitleBlock"
 import { AbsolutePos } from "../../components/mixins"
+import useData from "../../components/useData"
 
 const Container = styled.div`
   height: 720px;
@@ -61,11 +62,10 @@ const Credit = styled(Text)`
 const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
 
 function HeatTracker() {
-  const [timelineData, setTimelineData] = useState(null)
-  const [roads, setRoads] = useState(null)
+  const timelineData = useData(eventsURL)
+  const roads = useData(roadsURL)
   const [sirensData, setSirensData] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
-  const [mapLoaded, setMapLoaded] = useState(false)
 
   const [zoomLevel, setZoomLevel] = useState(null)
 
@@ -134,11 +134,6 @@ function HeatTracker() {
     }
   }
 
-  useEffect(() => {
-    getData(eventsURL).then((data) => setTimelineData(data))
-    getData(roadsURL).then((data) => setRoads(data))
-  }, [])
-
   //fetch sirens lazily
   useEffect(() => {
     if (
@@ -159,7 +154,6 @@ function HeatTracker() {
             style={{ borderRadius: "5px" }}
             onZoomEnd={(evt) => setZoomLevel(evt.viewState.zoom)}
             attributionControl={false}
-            onLoad={() => setMapLoaded(true)}
             mapLib={maplibre}
             ref={mapRef}
             initialViewState={initialViewState}
@@ -309,7 +303,7 @@ function HeatTracker() {
       <p>Zoom Level: {zoomLevel}</p>
       <Credit>
         Graphic: Caleb Diehl, Chris Keller, Story: Rebecca Boone, Data: Maxar,
-        ESRI, built with Maplibre
+        ESRI, Vexcel Imaging US, Inc, built with Maplibre
       </Credit>
     </Container>
   )

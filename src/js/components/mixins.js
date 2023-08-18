@@ -1,5 +1,5 @@
 export const CardBackground = `
- background: rgba(18, 18, 18, 0.3);
+ background: rgba(18, 18, 18, 0.5);
   padding: 16px;
   border-radius: 5px;
   box-sizing: border-box;

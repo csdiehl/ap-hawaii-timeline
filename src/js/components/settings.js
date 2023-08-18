@@ -15,6 +15,7 @@ export const sirensURL = `${s3Bucket}all-lahaina-outdoor-sirens.geojson`
 export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-box.png`
 export const finalImageURL = `${s3Bucket}overview-damage-zoomed-out.png`
 export const roadsURL = `${s3Bucket}lahaina_roads.json`
+export const barricadesURL = `${s3Bucket}blocks-and-barricades.geojson`
 
 export const slideTransitions = {
   orangeMarkers: [1, 2],
@@ -22,8 +23,7 @@ export const slideTransitions = {
   shiftBBox: [2, 3, 8],
   showSatellite: 5,
   showFinalImage: 14,
-  showBypassRoad: [2, 5, 9],
-  showFrontSt: [8, 9, 10],
+  showRoads: [1, 2, 5, 8, 9, 10, 14],
 }
 
 export const initialViewState = {
@@ -35,6 +35,7 @@ export const initialViewState = {
 }
 
 export const primaryColor = "#F9C16D"
+export const sirenColor = "#00AAE2"
 
 export const styleEnum = "ef0fe5a4221944c090fb642fa80c83e7"
 
@@ -82,6 +83,7 @@ export const Text = styled.h4`
   font-weight: 400;
   line-height: 1rem;
   margin: 5px 0px 0px;
+  text-shadow: 0 0 4px black;
 
   a {
     color: orange;

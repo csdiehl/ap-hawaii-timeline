@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
-import { Text, Title, breakpoints, primaryColor } from "./settings"
+import { Text, Title, breakpoints, primaryColor, sirenColor } from "./settings"
 
 const Container = styled.div`
   ${AbsolutePos}
@@ -24,7 +24,6 @@ const Container = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.3);
   }
 
   @media (${breakpoints.tablet}) {
@@ -39,11 +38,20 @@ const Legend = styled.div`
   align-items: center;
 `
 
-const Dot = styled.div`
-  height: 16px;
+const circleStyles = `
+ height: 16px;
   width: 16px;
   border-radius: 50%;
+`
+
+const Dot = styled.div`
+  ${circleStyles}
   background-color: ${primaryColor};
+`
+
+const HollowDot = styled.div`
+  ${circleStyles}
+  border: 1px solid ${sirenColor};
 `
 
 const formatDate = (dateString) => {
@@ -81,7 +89,7 @@ const InfoBox = ({ data, currentIndex }) => {
           ></Text>
           {[1, 5].includes(d.slide) && (
             <Legend>
-              <Dot />
+              {d.slide === 1 ? <Dot /> : <HollowDot />}
               <Text>
                 {d.slide === 1
                   ? "Satellite-detected Hotspots"

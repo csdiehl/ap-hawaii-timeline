@@ -1,4 +1,4 @@
-import { primaryColor } from "./settings"
+import { primaryColor, sirenColor } from "./settings"
 
 export const hotspots = {
   id: "hotspots-layer",
@@ -29,10 +29,10 @@ export const sirens = {
   source: "sirens-data",
   type: "circle",
   paint: {
-    "circle-color": "red",
+    "circle-color": sirenColor,
     "circle-stroke-opacity": 0.3,
     "circle-stroke-width": 10,
-    "circle-stroke-color": "red",
+    "circle-stroke-color": sirenColor,
     "circle-radius": 4,
   },
 }
@@ -42,11 +42,11 @@ export const solarSiren = {
   source: "sirens-data",
   type: "circle",
   paint: {
-    "circle-color": primaryColor,
-    "circle-stroke-opacity": 0.3,
-    "circle-stroke-width": 10,
-    "circle-stroke-color": primaryColor,
-    "circle-radius": 5,
+    "circle-color": "transparent",
+    "circle-stroke-opacity": 1,
+    "circle-stroke-width": 2,
+    "circle-stroke-color": sirenColor,
+    "circle-radius": 20,
   },
 }
 
@@ -75,7 +75,7 @@ export const highlightedRoads = {
   source: "roads-data",
   type: "line",
   paint: {
-    "line-color": primaryColor,
+    "line-color": "#FFF",
     "line-width": 6,
   },
 }
@@ -92,7 +92,7 @@ export const roadLabels = {
     "text-anchor": "center",
   },
   paint: {
-    "text-color": primaryColor,
+    "text-color": "#FFF",
     "text-halo-color": "black",
     "text-halo-width": 2,
   },
