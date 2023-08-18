@@ -83,7 +83,7 @@ export const Text = styled.h4`
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1rem;
+  line-height: 1.1rem;
   margin: 5px 0px 0px;
   text-shadow: 0 0 4px black;
 
