@@ -26,6 +26,11 @@ const Container = styled.div`
     width: 100%;
     background: rgba(0, 0, 0, 0.3);
   }
+
+  @media (${breakpoints.tablet}) {
+    top: 8px;
+    left: 8px;
+  }
 `
 
 const Legend = styled.div`

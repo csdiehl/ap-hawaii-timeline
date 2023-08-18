@@ -29,6 +29,7 @@ import {
   Text,
   finalImageURL,
   roadsURL,
+  breakpoints,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -51,6 +52,10 @@ const Credit = styled(Text)`
   bottom: 8px;
   font-size: 0.75rem;
   color: lightgrey;
+
+  @media (${breakpoints.mobile}) {
+    bottom: 4px;
+  }
 `
 
 const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])

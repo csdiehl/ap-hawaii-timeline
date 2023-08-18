@@ -18,9 +18,9 @@ export const BoxLayer = {
   source: "bounding-box",
   type: "line",
   paint: {
-    "line-width": 2,
+    "line-width": 1,
     "line-dasharray": [2, 2],
-    "line-color": primaryColor,
+    "line-color": "#FFF",
   },
 }
 
@@ -44,9 +44,9 @@ export const solarSiren = {
   paint: {
     "circle-color": primaryColor,
     "circle-stroke-opacity": 0.3,
-    "circle-stroke-width": 0,
+    "circle-stroke-width": 10,
     "circle-stroke-color": primaryColor,
-    "circle-radius": 14,
+    "circle-radius": 5,
   },
 }
 

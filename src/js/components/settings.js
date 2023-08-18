@@ -1,5 +1,11 @@
 import styled from "styled-components"
 
+export const breakpoints = {
+  mobile: "max-width: 425px",
+  tablet: "max-width: 768px",
+  desktop: "max-width: 1024px",
+}
+
 const s3Bucket =
   "https://s3.amazonaws.com/data.ap.org/west-maui-wildfires-timeline/"
 
@@ -42,6 +48,16 @@ export const Title = styled.h1`
   line-height: 2rem; /* 133.333% */
   color: #fff;
   margin: 0;
+
+  @media (${breakpoints.mobile}) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (${breakpoints.tablet}) {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
 `
 
 export const SubHeading = styled.h3`
@@ -52,6 +68,10 @@ export const SubHeading = styled.h3`
   font-weight: 600;
   line-height: 1.25rem;
   margin: 0px 0px 5px;
+
+  @media (${breakpoints.mobile}) {
+    font-size: 0.875rem;
+  }
 `
 
 export const Text = styled.h4`
@@ -75,9 +95,3 @@ export const Text = styled.h4`
 `
 
 export const thisMonth = new Date().toLocaleString("default", { month: "long" })
-
-export const breakpoints = {
-  mobile: "max-width: 425px",
-  tablet: "max-width: 768px",
-  desktop: "max-width: 1024px",
-}

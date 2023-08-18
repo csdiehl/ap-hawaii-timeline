@@ -4,7 +4,7 @@ import { Graphic } from "tailor"
 
 function Index() {
   return (
-    <Graphic wide>
+    <Graphic style={{ padding: 0 }} wide>
       <HeatTracker />
     </Graphic>
   )
