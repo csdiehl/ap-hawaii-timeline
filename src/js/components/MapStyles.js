@@ -1,5 +1,13 @@
 import { primaryColor, sirenColor } from "./settings"
 
+const blueDotStyles = {
+  "circle-color": sirenColor,
+  "circle-stroke-opacity": 0.3,
+  "circle-stroke-width": 10,
+  "circle-stroke-color": sirenColor,
+  "circle-radius": 4,
+}
+
 export const hotspots = {
   id: "hotspots-layer",
   source: "hotspots",
@@ -28,13 +36,7 @@ export const sirens = {
   id: "sirens-layer",
   source: "sirens-data",
   type: "circle",
-  paint: {
-    "circle-color": sirenColor,
-    "circle-stroke-opacity": 0.3,
-    "circle-stroke-width": 10,
-    "circle-stroke-color": sirenColor,
-    "circle-radius": 4,
-  },
+  paint: blueDotStyles,
 }
 
 export const solarSiren = {
@@ -95,5 +97,16 @@ export const roadLabels = {
     "text-color": "#FFF",
     "text-halo-color": "black",
     "text-halo-width": 2,
+  },
+}
+
+export const barricades = {
+  id: "barricades-layer",
+  source: "barricades-data",
+  type: "circle",
+  paint: {
+    ...blueDotStyles,
+    "circle-color": primaryColor,
+    "circle-stroke-color": primaryColor,
   },
 }

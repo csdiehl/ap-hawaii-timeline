@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react"
 import { getData } from "./utils"
 
-const useData = (url) => {
+const useData = (url, condition = true) => {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    getData(url).then((data) => setData(data))
-  }, [url])
+    if (condition && !data) {
+      getData(url).then((data) => setData(data))
+    }
+  }, [url, condition, data])
 
   return data
 }

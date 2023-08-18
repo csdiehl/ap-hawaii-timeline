@@ -1,6 +1,6 @@
 import maplibre from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import Map, { Layer, Marker, NavigationControl, Source } from "react-map-gl"
 import styled from "styled-components"
 import Buttons from "../../components/Buttons"
@@ -8,6 +8,7 @@ import InfoBox from "../../components/InfoBox"
 import Timeline from "../../components/Timeline"
 import {
   BoxLayer,
+  barricades,
   highlightedRoads,
   hotspots,
   mask,
@@ -30,6 +31,7 @@ import {
   finalImageURL,
   roadsURL,
   breakpoints,
+  barricadesURL,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -62,10 +64,17 @@ const Credit = styled(Text)`
 const hawaiiArea = bboxPolygon([-163.419313, 15.774, -150.938845, 24.669716])
 
 function HeatTracker() {
-  const timelineData = useData(eventsURL)
-  const roads = useData(roadsURL)
-  const [sirensData, setSirensData] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
+  const timelineStarted = currentIndex >= 0
+
+  const timelineData = useData(eventsURL)
+  const roads = useData(roadsURL, timelineStarted)
+
+  //fetch sirens lazily
+  const sirensData = useData(
+    sirensURL,
+    slideTransitions.loadSirenData.includes(currentIndex)
+  )
 
   const [zoomLevel, setZoomLevel] = useState(null)
 
@@ -78,7 +87,6 @@ function HeatTracker() {
   const boundingBox = event?.location && bboxPolygon(event.location)
   const maskedArea = boundingBox && difference(hawaiiArea, boundingBox)
   const showSirens = event && event.what.includes("siren")
-  const timelineStarted = currentIndex >= 0
 
   function advanceEvent() {
     setCurrentIndex((prev) => {
@@ -133,15 +141,6 @@ function HeatTracker() {
       })
     }
   }
-
-  //fetch sirens lazily
-  useEffect(() => {
-    if (
-      slideTransitions.loadSirenData.includes(currentIndex) &&
-      sirensData === null
-    )
-      getData(sirensURL).then((data) => setSirensData(data))
-  }, [currentIndex, sirensData])
 
   return (
     <Container ref={containerRef} onKeyDown={(e) => checkKey(e)}>
@@ -250,6 +249,26 @@ function HeatTracker() {
                         visibility: event?.slide === 5 ? "visible" : "none",
                       }}
                       filter={["==", ["get", "Solar"], "YES"]}
+                    />
+                  </Source>
+
+                  <Source
+                    id="barricades-data"
+                    data={
+                      currentIndex === slideTransitions.showBarricades
+                        ? barricadesURL
+                        : undefined
+                    }
+                    type="geojson"
+                  >
+                    <Layer
+                      {...barricades}
+                      layout={{
+                        visibility:
+                          currentIndex === slideTransitions.showBarricades
+                            ? "visible"
+                            : "none",
+                      }}
                     />
                   </Source>
 

@@ -24,6 +24,7 @@ export const slideTransitions = {
   showSatellite: 5,
   showFinalImage: 14,
   showRoads: [1, 2, 5, 8, 9, 10, 14],
+  showBarricades: 9,
 }
 
 export const initialViewState = {
