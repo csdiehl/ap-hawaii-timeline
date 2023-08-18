@@ -29,27 +29,27 @@ build:
 preview_deploy:
   stage: preview_deploy
   rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
   variables:
     KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: datateam-qa-role
   script:
     - aws s3 sync public/ s3://$PREVIEW_BUCKET/$CI_PROJECT_NAME/ --sse AES256
     - node ./bin/akamai_purge.js interactives-qa.ap.org public
-  
+
 prod_deploy:
   stage: prod_deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual
   script:
-    - aws s3 sync public/ s3://$PROJECT_SITE_BUCKET/features/2023/$CI_PROJECT_NAME/ --sse AES256
-    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/features/2023/$CI_PROJECT_NAME/*"
-    
+    - aws s3 sync public/ s3://$PRODUCTION_BUCKET/$CI_PROJECT_NAME/ --sse AES256
+    - node ./bin/akamai_purge.js interactives.ap.org public
+
 remove_prod_deploy:
   stage: remove_prod_deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual
   script:
-    - aws s3 rm s3://$PROJECT_SITE_BUCKET/features/2023/$CI_PROJECT_NAME/ --recursive
-    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/features/2023/$CI_PROJECT_NAME/*"
+    - aws s3 rm s3://$PRODUCTION_BUCKET/$CI_PROJECT_NAME/ --recursive
+    - node ./bin/akamai_purge.js interactives.ap.org public
