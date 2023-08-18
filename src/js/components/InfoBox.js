@@ -39,14 +39,14 @@ const Legend = styled.div`
 `
 
 const circleStyles = `
- height: 16px;
-  width: 16px;
+ height: 12px;
+  width: 12px;
   border-radius: 50%;
 `
 
 const Dot = styled.div`
   ${circleStyles}
-  background-color: ${primaryColor};
+  background-color: ${(props) => props.color ?? primaryColor};
 `
 
 const HollowDot = styled.div`
@@ -90,12 +90,24 @@ const InfoBox = ({ data, currentIndex }) => {
           {[1, 5].includes(d.slide) && (
             <Legend>
               {d.slide === 1 ? <Dot /> : <HollowDot />}
-              <Text>
+              <Text style={{ margin: 0 }}>
                 {d.slide === 1
                   ? "Satellite-detected Hotspots"
                   : "Solar-powered sirens"}
               </Text>
             </Legend>
+          )}
+          {d.slide === 15 && (
+            <>
+              <Legend>
+                <Dot />
+                <Text style={{ margin: 0 }}>Destroyed</Text>
+                <Legend>
+                  <Dot color="#FFF" />
+                  <Text style={{ margin: 0 }}>Damaged</Text>
+                </Legend>
+              </Legend>
+            </>
           )}
         </Container>
       ))}

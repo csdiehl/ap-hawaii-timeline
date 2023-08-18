@@ -16,9 +16,10 @@ export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-
 export const finalImageURL = `${s3Bucket}overview-damage-zoomed-out.png`
 export const roadsURL = `${s3Bucket}lahaina_roads.json`
 export const barricadesURL = `${s3Bucket}blocks-and-barricades.geojson`
+export const damageURL = `${s3Bucket}lahiana-damage-assessment.json`
 
 export const slideTransitions = {
-  orangeMarkers: [1, 2],
+  orangeMarkers: [],
   loadSirenData: [2, 4],
   shiftBBox: [2, 3, 8],
   showSatellite: 5,

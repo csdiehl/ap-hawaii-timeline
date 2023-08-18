@@ -8,6 +8,8 @@ const blueDotStyles = {
   "circle-radius": 4,
 }
 
+const damaged = "#FFF"
+
 export const hotspots = {
   id: "hotspots-layer",
   source: "hotspots",
@@ -106,7 +108,35 @@ export const barricades = {
   type: "circle",
   paint: {
     ...blueDotStyles,
-    "circle-color": primaryColor,
-    "circle-stroke-color": primaryColor,
+    "circle-color": sirenColor,
+    "circle-stroke-color": sirenColor,
+  },
+}
+
+export const damageLayer = {
+  id: "damage-layer",
+  source: "damage-data",
+  type: "fill",
+  paint: {
+    "fill-opacity": 0.8,
+    "fill-color": [
+      "match",
+      ["get", "DAMAGE_LEV"],
+      "FEMA 0 / Minor",
+      damaged,
+      "FEMA 1 / Moderate",
+      damaged,
+      "FEMA 2 / Moderate",
+      damaged,
+      "FEMA 3 / Moderate",
+      damaged,
+      "FEMA 4 / Major",
+      damaged,
+      "FEMA 5 / Major",
+      damaged,
+      "FEMA 6 / Destroyed",
+      primaryColor,
+      "transparent",
+    ],
   },
 }

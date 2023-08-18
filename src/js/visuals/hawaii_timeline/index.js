@@ -9,6 +9,7 @@ import Timeline from "../../components/Timeline"
 import {
   BoxLayer,
   barricades,
+  damageLayer,
   highlightedRoads,
   hotspots,
   mask,
@@ -32,6 +33,8 @@ import {
   roadsURL,
   breakpoints,
   barricadesURL,
+  sirenColor,
+  damageURL,
 } from "../../components/settings"
 import { dateToUTC, getData } from "../../components/utils"
 import bboxPolygon from "@turf/bbox-polygon"
@@ -209,6 +212,15 @@ function HeatTracker() {
                     />
                   </Source>
 
+                  <Source id="damage-data" type="geojson" data={damageURL}>
+                    <Layer
+                      {...damageLayer}
+                      layout={{
+                        visibility: currentIndex === 14 ? "visible" : "none",
+                      }}
+                    />
+                  </Source>
+
                   <Source id="roads-data" type="geojson" data={roads}>
                     <Layer {...highlightedRoads} />
                     <Layer {...roadLabels} />
@@ -236,6 +248,9 @@ function HeatTracker() {
                     <Layer
                       {...hotspots}
                       filter={["<=", ["get", "acq_date"], formattedDate]}
+                      layout={{
+                        visibility: currentIndex <= 13 ? "visible" : "none",
+                      }}
                     ></Layer>
                   </Source>
                   <Source id="sirens-data" type="geojson" data={sirensData}>
@@ -254,11 +269,7 @@ function HeatTracker() {
 
                   <Source
                     id="barricades-data"
-                    data={
-                      currentIndex === slideTransitions.showBarricades
-                        ? barricadesURL
-                        : undefined
-                    }
+                    data={barricadesURL}
                     type="geojson"
                   >
                     <Layer
@@ -292,7 +303,7 @@ function HeatTracker() {
                       longitude={event.secondaryPoint[1]}
                     >
                       <Pin
-                        color={primaryColor}
+                        color={sirenColor}
                         show={
                           event?.visual === "Map point" ||
                           event?.category === "Eyewitness"
