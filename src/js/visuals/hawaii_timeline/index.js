@@ -325,8 +325,8 @@ function HeatTracker() {
       )}
       <p>Zoom Level: {zoomLevel}</p>
       <Credit>
-        Graphic: Caleb Diehl, Chris Keller, Story: Rebecca Boone, Data: Maxar,
-        ESRI, Vexcel Imaging US, Inc, built with Maplibre
+        Graphic: Caleb Diehl, Christopher L. Keller, Story: Rebecca Boone, Data:
+        Maxar, ESRI, Vexcel Imaging US, Inc, built with Maplibre
       </Credit>
     </Container>
   )
