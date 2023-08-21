@@ -79,8 +79,6 @@ function HeatTracker() {
     slideTransitions.loadSirenData.includes(currentIndex)
   )
 
-  const [zoomLevel, setZoomLevel] = useState(null)
-
   const containerRef = useRef()
   const mapRef = useRef()
 
@@ -154,7 +152,6 @@ function HeatTracker() {
 
           <Map
             style={{ borderRadius: "5px" }}
-            onZoomEnd={(evt) => setZoomLevel(evt.viewState.zoom)}
             attributionControl={false}
             mapLib={maplibre}
             ref={mapRef}
@@ -323,7 +320,6 @@ function HeatTracker() {
           <Timeline index={currentIndex} nEvents={n} />
         </>
       )}
-      <p>Zoom Level: {zoomLevel}</p>
       <Credit>
         Graphic: Caleb Diehl, Christopher L. Keller, Story: Rebecca Boone, Data:
         Maxar, ESRI, Vexcel Imaging US, Inc, built with Maplibre
