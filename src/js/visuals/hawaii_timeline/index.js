@@ -39,6 +39,7 @@ import {
   sirensURL,
   slideTransitions,
   styleEnum,
+  styleLink,
 } from "../../components/settings"
 import useData from "../../components/useData"
 import { dateToUTC } from "../../components/utils"
@@ -118,7 +119,7 @@ function HeatTracker() {
     if (!map || !timelineData) return
     const { lat, lng, location, zoom } = timelineData[n]
 
-    if (lat && lng) {
+    if (lat && lng && !location) {
       map.flyTo({
         center: [lng, lat],
         zoom: zoom,
@@ -132,7 +133,7 @@ function HeatTracker() {
       map.fitBounds(location, {
         padding: shiftPadding
           ? {
-              left: padLeft ? 300 : 20,
+              left: padLeft ? 350 : 20,
               top: padLeft ? 20 : 200,
               right: 20,
               bottom: 20,
@@ -156,7 +157,7 @@ function HeatTracker() {
             mapLib={maplibre}
             ref={mapRef}
             initialViewState={initialViewState}
-            mapStyle={`https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`}
+            mapStyle={styleLink}
           >
             <>
               <Source

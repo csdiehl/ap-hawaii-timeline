@@ -21,7 +21,7 @@ export const damageURL = `${s3Bucket}lahiana-damage-assessment.json`
 export const slideTransitions = {
   orangeMarkers: [1],
   loadSirenData: [2, 4],
-  shiftBBox: [2, 3, 8],
+  shiftBBox: [2, 3, 8, 12],
   showSatellite: 5,
   showFinalImage: [-1, 14],
   showRoads: [1, 2, 5, 8, 9, 10, 14],
@@ -39,7 +39,12 @@ export const initialViewState = {
 export const primaryColor = "#F9C16D"
 export const sirenColor = "#00AAE2"
 
-export const styleEnum = "ef0fe5a4221944c090fb642fa80c83e7"
+const styleEnum = "c11ce4f7801740b2905eb03ddc963ac8"
+//  "ef0fe5a4221944c090fb642fa80c83e7"
+
+export const styleLink = `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`
+
+//basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer
 
 // design system styles
 export const Title = styled.h1`

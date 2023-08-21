@@ -60,7 +60,7 @@ export const mask = {
   type: "fill",
   paint: {
     "fill-color": "black",
-    "fill-opacity": 0.5,
+    "fill-opacity": 0.3,
   },
 }
 
@@ -71,6 +71,8 @@ export const satelliteImage = {
   paint: {
     "raster-fade-duration": 500,
     "raster-opacity": 0.7,
+    "raster-saturation": -0.3,
+    "raster-contrast": 0.2,
   },
 }
 
