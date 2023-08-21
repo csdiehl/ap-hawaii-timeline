@@ -337,8 +337,9 @@ function HeatTracker() {
         </>
       )}
       <Credit>
-        Graphic: Caleb Diehl, Christopher L. Keller, Story: Rebecca Boone, Data:
-        Maxar, ESRI, Vexcel Imaging US, Inc, built with Maplibre
+        Graphic: Caleb Diehl, Christopher L. Keller, Story: Rebecca Boone,
+        Heather Hollingsworth, Claudia Lauer Data: Maxar, ESRI, Vexcel Imaging
+        US, Inc, built with Maplibre
       </Credit>
     </Container>
   )
