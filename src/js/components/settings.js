@@ -36,13 +36,16 @@ export const initialViewState = {
   pitch: 0,
 }
 
-export const primaryColor = "#F9C16D"
+export const primaryColor = "#FF155D"
 export const sirenColor = "#00AAE2"
+export const fireColor = "#F9C16D"
 
 const styleEnum = "c11ce4f7801740b2905eb03ddc963ac8"
 //  "ef0fe5a4221944c090fb642fa80c83e7"
 
 export const styleLink = `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${styleEnum}?type=style&token=AAPK607d6ebb8ce04a1a9fc5e06c1b80cf4aoVSN2GntWaa8EnGF8MNnFz_3vax7S1HODpwDAlFvelNGDk8JIFYk_Db6OH9ccx-T`
+export const satelliteTileSource =
+  "https://fly.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Firefly/MapServer/tile/{z}/{y}/{x}.png"
 
 //basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer
 
@@ -93,8 +96,8 @@ export const Text = styled.h4`
   text-shadow: 0 0 4px black;
 
   a {
-    color: orange;
-    text-decoration: none;
+    color: #fff;
+    text-decoration: underline;
     font-weight: bold;
   }
 

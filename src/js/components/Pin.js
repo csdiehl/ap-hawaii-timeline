@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled, { keyframes } from "styled-components"
+import { primaryColor } from "./settings"
 
 const pulse1 = keyframes`
 0% {
@@ -55,7 +56,7 @@ const CenterMarker = styled.circle`
   transform-origin: center;
 `
 
-function Pin({ size = 40, show = true, color = "#FFF" }) {
+function Pin({ size = 40, show = true, color = primaryColor }) {
   return (
     <svg height={size} viewBox="0 0 40 40" style={pinStyle}>
       <g style={{ visibility: show ? "visible" : "hidden" }}>

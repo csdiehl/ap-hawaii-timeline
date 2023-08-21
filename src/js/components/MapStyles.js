@@ -1,4 +1,4 @@
-import { primaryColor, sirenColor } from "./settings"
+import { primaryColor, sirenColor, fireColor } from "./settings"
 
 const blueDotStyles = {
   "circle-color": sirenColor,
@@ -15,10 +15,10 @@ export const hotspots = {
   source: "hotspots",
   type: "circle",
   paint: {
-    "circle-color": primaryColor,
+    "circle-color": fireColor,
     "circle-stroke-opacity": 0.3,
     "circle-stroke-width": 5,
-    "circle-stroke-color": primaryColor,
+    "circle-stroke-color": fireColor,
     "circle-radius": 2,
   },
 }
@@ -30,7 +30,7 @@ export const BoxLayer = {
   paint: {
     "line-width": 1,
     "line-dasharray": [2, 2],
-    "line-color": "#FFF",
+    "line-color": "lightgrey",
   },
 }
 
@@ -71,8 +71,20 @@ export const satelliteImage = {
   paint: {
     "raster-fade-duration": 500,
     "raster-opacity": 0.7,
-    "raster-saturation": -0.3,
+    "raster-saturation": -0.5,
     "raster-contrast": 0.2,
+  },
+}
+
+export const satelliteTileLayer = {
+  id: "satellite-tile-layer",
+  source: "satellite-tiles",
+  type: "raster",
+  paint: {
+    "raster-fade-duration": 500,
+    "raster-opacity": 0.2,
+    "raster-saturation": -1,
+    "raster-contrast": 0.5,
   },
 }
 
@@ -81,7 +93,7 @@ export const highlightedRoads = {
   source: "roads-data",
   type: "line",
   paint: {
-    "line-color": "#FFF",
+    "line-color": "lightgrey",
     "line-width": 6,
   },
 }

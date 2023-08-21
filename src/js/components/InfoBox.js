@@ -1,8 +1,15 @@
 import PropTypes from "prop-types"
 import React from "react"
-import styled from "styled-components"
+import styled, { keyframes, css } from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
-import { Text, Title, breakpoints, primaryColor, sirenColor } from "./settings"
+import {
+  Text,
+  Title,
+  breakpoints,
+  fireColor,
+  primaryColor,
+  sirenColor,
+} from "./settings"
 
 const Container = styled.div`
   ${AbsolutePos}
@@ -44,6 +51,33 @@ const circleStyles = `
   border-radius: 50%;
 `
 
+const pulse = keyframes`
+0% {
+  transform: scale(1);
+}
+
+50% {
+  transform: scale(1.2);
+}
+
+100% {
+  transform: scale(1);
+}
+`
+
+const TimeBox = styled.div`
+  display: inline-block;
+  border-radius: 5px;
+  background: rgba(255, 21, 93, 0.1);
+  padding: 4px;
+  color: ${primaryColor};
+  animation: ${(props) =>
+    props.show &&
+    css`
+      ${pulse} 500ms ease-in-out 700ms
+    `};
+`
+
 const Dot = styled.div`
   ${circleStyles}
   background-color: ${(props) => props.color ?? primaryColor};
@@ -78,9 +112,9 @@ const InfoBox = ({ data, currentIndex }) => {
             <Title>{d.title}</Title>
           </div>
           <Text style={{ color: "lightgrey" }}>
-            <strong style={{ color: primaryColor }}>
-              {d.approx_local_time}
-            </strong>{" "}
+            {d.approx_local_time && (
+              <TimeBox show={currentIndex === i}>{d.approx_local_time}</TimeBox>
+            )}{" "}
             {formatDate(d.date)}
           </Text>
           <Text
@@ -89,7 +123,7 @@ const InfoBox = ({ data, currentIndex }) => {
           ></Text>
           {[1, 5].includes(d.slide) && (
             <Legend>
-              {d.slide === 1 ? <Dot /> : <HollowDot />}
+              {d.slide === 1 ? <Dot color={fireColor} /> : <HollowDot />}
               <Text style={{ margin: 0 }}>
                 {d.slide === 1
                   ? "Satellite-detected Hotspots"

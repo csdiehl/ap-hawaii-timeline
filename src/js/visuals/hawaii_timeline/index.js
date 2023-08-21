@@ -16,6 +16,7 @@ import {
   mask,
   roadLabels,
   satelliteImage,
+  satelliteTileLayer,
   sirens,
   solarSiren,
 } from "../../components/MapStyles"
@@ -38,8 +39,9 @@ import {
   sirenColor,
   sirensURL,
   slideTransitions,
-  styleEnum,
   styleLink,
+  satelliteTileSource,
+  fireColor,
 } from "../../components/settings"
 import useData from "../../components/useData"
 import { dateToUTC } from "../../components/utils"
@@ -160,6 +162,19 @@ function HeatTracker() {
             mapStyle={styleLink}
           >
             <>
+              <Source
+                id="satellite-tiles"
+                type="raster"
+                tileSize={256}
+                tiles={[satelliteTileSource]}
+              >
+                <Layer
+                  key="satellite-tiles"
+                  beforeId="Admin0 point/2x large"
+                  {...satelliteTileLayer}
+                />
+              </Source>
+
               <Source
                 id="satellite-image-2"
                 type="image"
@@ -285,8 +300,8 @@ function HeatTracker() {
                     <Pin
                       color={
                         slideTransitions.orangeMarkers.includes(currentIndex)
-                          ? primaryColor
-                          : "#FFF"
+                          ? fireColor
+                          : primaryColor
                       }
                       show={
                         event?.visual === "Map point" ||
