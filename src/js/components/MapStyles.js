@@ -82,8 +82,8 @@ export const satelliteTileLayer = {
   type: "raster",
   paint: {
     "raster-fade-duration": 500,
-    "raster-opacity": 0.2,
-    "raster-saturation": -1,
+    "raster-opacity": 0.5,
+    "raster-saturation": -0.9,
     "raster-contrast": 0.5,
   },
 }

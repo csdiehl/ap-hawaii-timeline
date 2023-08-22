@@ -16,7 +16,7 @@ const Container = styled.div`
   top: 16px;
   left: 16px;
   ${CardBackground}
-  max-width: 400px;
+  max-width: 425px;
   text-wrap: balance;
   opacity: ${(props) => (props.show ? 1 : 0)};
   pointer-events: ${(props) => (props.show ? "all" : "none")};
@@ -57,7 +57,7 @@ const pulse = keyframes`
 }
 
 50% {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 100% {
@@ -66,6 +66,8 @@ const pulse = keyframes`
 `
 
 const TimeBox = styled.div`
+  font-weight: bold;
+  font-size: 1.2rem;
   display: inline-block;
   border-radius: 5px;
   background: rgba(255, 21, 93, 0.1);
@@ -76,6 +78,10 @@ const TimeBox = styled.div`
     css`
       ${pulse} 500ms ease-in-out 700ms
     `};
+
+  @media (${breakpoints.mobile}) {
+    font-size: 1rem;
+  }
 `
 
 const Dot = styled.div`
@@ -121,7 +127,7 @@ const InfoBox = ({ data, currentIndex }) => {
             dangerouslySetInnerHTML={{ __html: d.what }}
             style={{ marginTop: "16px" }}
           ></Text>
-          {[1, 5].includes(d.slide) && (
+          {[5].includes(d.slide) && (
             <Legend>
               {d.slide === 1 ? <Dot color={fireColor} /> : <HollowDot />}
               <Text style={{ margin: 0 }}>
@@ -130,18 +136,6 @@ const InfoBox = ({ data, currentIndex }) => {
                   : "Solar-powered sirens"}
               </Text>
             </Legend>
-          )}
-          {d.slide === 15 && (
-            <>
-              <Legend>
-                <Dot />
-                <Text style={{ margin: 0 }}>Destroyed</Text>
-                <Legend>
-                  <Dot color="#FFF" />
-                  <Text style={{ margin: 0 }}>Damaged</Text>
-                </Legend>
-              </Legend>
-            </>
           )}
         </Container>
       ))}

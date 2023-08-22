@@ -6,7 +6,7 @@ import { breakpoints } from "./settings"
 
 const Container = styled.div`
   ${AbsolutePos};
-  top: 60%;
+  top: 70%;
   left: 0;
   width: 100%;
   display: flex;
