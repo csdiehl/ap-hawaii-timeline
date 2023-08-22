@@ -26,6 +26,7 @@ const Container = styled.div`
   transition: opacity 500ms ease-in-out
       ${(props) => (!props.show ? "" : "500ms")},
     transform 500ms ease-in-out ${(props) => (!props.show ? "" : "500ms")};
+  backdrop-filter: blur(5px);
 
   @media (${breakpoints.tablet}) {
     top: 8px;
