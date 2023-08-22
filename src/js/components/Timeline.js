@@ -57,7 +57,7 @@ const Timeline = ({ nEvents, index }) => {
         {[...Array(nEvents).keys()].map((d, i) => (
           <Dot key={i} />
         ))}
-        <MainDot translateBy={translateBy} />
+        {index >= 0 && <MainDot translateBy={translateBy} />}
       </Bar>
     </Container>
   )

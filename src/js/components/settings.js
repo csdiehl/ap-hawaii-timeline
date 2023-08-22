@@ -108,4 +108,23 @@ export const Text = styled.h4`
   }
 `
 
+export const MainTitle = styled.h1`
+  font-family: AP Var;
+  font-size: 3.25rem;
+  font-style: normal;
+  font-weight: 750;
+  line-height: 3.75rem;
+  letter-spacing: -0.026rem;
+  color: #fff;
+
+  @media (${breakpoints.mobile}) {
+    font-family: AP Var;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 750;
+    line-height: 2.75rem;
+    letter-spacing: -0.018rem;
+  }
+`
+
 export const thisMonth = new Date().toLocaleString("default", { month: "long" })

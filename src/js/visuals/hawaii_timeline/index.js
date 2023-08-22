@@ -45,6 +45,7 @@ import {
 } from "../../components/settings"
 import useData from "../../components/useData"
 import { dateToUTC } from "../../components/utils"
+import { useNodeDimensions } from "ap-react-hooks"
 
 const Container = styled.div`
   height: 720px;
@@ -53,6 +54,10 @@ const Container = styled.div`
   max-width: 1300px;
   margin: 0 auto;
   overflow: hidden;
+
+  @media (${breakpoints.mobile}) {
+    height: 780px;
+  }
 `
 
 const Credit = styled(Text)`
@@ -61,6 +66,7 @@ const Credit = styled(Text)`
   bottom: 8px;
   font-size: 0.75rem;
   color: lightgrey;
+  line-height: 0.85rem;
 
   @media (${breakpoints.mobile}) {
     bottom: 4px;
@@ -82,7 +88,8 @@ function HeatTracker() {
     slideTransitions.loadSirenData.includes(currentIndex)
   )
 
-  const containerRef = useRef()
+  const [node, dimensions] = useNodeDimensions()
+  const { width, height } = dimensions
   const mapRef = useRef()
 
   const event = timelineData && timelineData[currentIndex]
@@ -119,24 +126,25 @@ function HeatTracker() {
   function transitionMap(n) {
     const { current: map } = mapRef
     if (!map || !timelineData) return
-    const { lat, lng, location, zoom } = timelineData[n]
+    const { lat, lng, location, zoom } = timelineData[n],
+      largeScreen = width >= 600
 
     if (lat && lng && !location) {
+      const mobileOffset = largeScreen ? 0 : 0.001
       map.flyTo({
-        center: [lng, lat],
+        center: [lng, lat + mobileOffset],
         zoom: zoom,
         essential: true,
         speed: 0.5,
       })
     } else if (location) {
-      const shiftPadding = slideTransitions.shiftBBox.includes(currentIndex),
-        padLeft = window.innerWidth >= 600
+      const shiftPadding = slideTransitions.shiftBBox.includes(currentIndex)
 
       map.fitBounds(location, {
         padding: shiftPadding
           ? {
-              left: padLeft ? 350 : 20,
-              top: padLeft ? 20 : 200,
+              left: largeScreen ? 350 : 20,
+              top: largeScreen ? 20 : 200,
               right: 20,
               bottom: 20,
             }
@@ -146,8 +154,12 @@ function HeatTracker() {
     }
   }
 
+  const startTimeline = () => {
+    if (currentIndex < 0) advanceEvent()
+  }
+
   return (
-    <Container ref={containerRef} onKeyDown={(e) => checkKey(e)}>
+    <Container ref={node} onKeyDown={(e) => checkKey(e)}>
       {currentIndex < 0 && <TitleBlock advanceEvent={advanceEvent} />}
       {timelineData && (
         <>
@@ -160,6 +172,7 @@ function HeatTracker() {
             ref={mapRef}
             initialViewState={initialViewState}
             mapStyle={styleLink}
+            onClick={startTimeline}
           >
             <>
               <Source

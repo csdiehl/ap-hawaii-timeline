@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { CardBackground, AbsolutePos } from "./mixins"
-import { SubHeading, Title, Text } from "./settings"
+import { SubHeading, Title, MainTitle, primaryColor } from "./settings"
 import Pin from "./Pin"
 
 const Container = styled.div`
@@ -12,18 +12,19 @@ const Container = styled.div`
   transform: translate3d(-50%, -50%, 0);
   text-align: center;
   text-wrap: balance;
+  backdrop-filter: blur(2px);
 `
 
 const Button = styled.button`
   all: unset;
   cursor: pointer;
-  color: lightgrey;
+  color: ${primaryColor};
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.1);
+  margin: 16px auto;
+  background: rgba(255, 21, 93, 0.1);
   padding: 16px;
   border-radius: 5px;
 `
@@ -31,11 +32,13 @@ const Button = styled.button`
 const TitleBlock = ({ advanceEvent }) => {
   return (
     <Container>
-      <Title>How the Lahania Fire Unfolded</Title>
-      <SubHeading>An interactive Timeline</SubHeading>
+      <MainTitle>How the Lahania Fire Unfolded</MainTitle>
+      <Title>An interactive Timeline</Title>
       <Button onClick={() => advanceEvent()}>
         <Pin />
-        <Text>Click to Start</Text>
+        <SubHeading style={{ color: primaryColor, fontWeight: "bold" }}>
+          Click to Start
+        </SubHeading>
       </Button>
     </Container>
   )
