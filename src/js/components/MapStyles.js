@@ -49,7 +49,7 @@ export const solarSiren = {
     "circle-color": "transparent",
     "circle-stroke-opacity": 1,
     "circle-stroke-width": 2,
-    "circle-stroke-color": sirenColor,
+    "circle-stroke-color": primaryColor,
     "circle-radius": 20,
   },
 }

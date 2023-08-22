@@ -128,16 +128,6 @@ const InfoBox = ({ data, currentIndex }) => {
             dangerouslySetInnerHTML={{ __html: d.what }}
             style={{ marginTop: "16px" }}
           ></Text>
-          {[5].includes(d.slide) && (
-            <Legend>
-              {d.slide === 1 ? <Dot color={fireColor} /> : <HollowDot />}
-              <Text style={{ margin: 0 }}>
-                {d.slide === 1
-                  ? "Satellite-detected Hotspots"
-                  : "Solar-powered sirens"}
-              </Text>
-            </Legend>
-          )}
         </Container>
       ))}
     </>
