@@ -17,6 +17,8 @@ export const finalImageURL = `${s3Bucket}overview-damage-zoomed-out.png`
 export const roadsURL = `${s3Bucket}lahaina_roads.json`
 export const barricadesURL = `${s3Bucket}blocks-and-barricades.geojson`
 export const damageURL = `${s3Bucket}lahiana-damage-assessment.json`
+export const arrowLeft = `${s3Bucket}arrow-left.svg`
+export const arrowRight = `${s3Bucket}arrow-right.svg`
 
 export const slideTransitions = {
   orangeMarkers: [1],

@@ -1,12 +1,16 @@
 import HeatTracker from "js/visuals/hawaii_timeline"
 import React from "react"
-import { Graphic } from "tailor"
+import { Footer } from "ap-react-components"
+import apLogo from "ap-interactive-assets/images/AP_LOGO_86x100.png"
 
 function Index() {
   return (
-    <Graphic style={{ padding: 0 }} wide>
+    <>
       <HeatTracker />
-    </Graphic>
+      <div style={{ maxWidth: "1300px", margin: "0 auto" }}>
+        <Footer logo={apLogo} />
+      </div>
+    </>
   )
 }
 

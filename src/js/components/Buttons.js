@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { AbsolutePos } from "./mixins"
 import PropTypes from "prop-types"
-import { breakpoints } from "./settings"
+import { arrowLeft, arrowRight, breakpoints } from "./settings"
 
 const Container = styled.div`
   ${AbsolutePos};
@@ -55,11 +55,11 @@ const Buttons = ({ goForward, goBack, timelineStarted }) => {
           disabled={!timelineStarted}
           onClick={goBack}
         >
-          <Arrow alt="backward" src="../arrow-left.svg" />
+          <Arrow alt="backward" src={arrowLeft} />
         </Button>
       }
       <Button timelineStarted={timelineStarted} onClick={goForward}>
-        <Arrow alt="forward" src="../arrow-right.svg" />
+        <Arrow alt="forward" src={arrowRight} />
       </Button>
     </Container>
   )
