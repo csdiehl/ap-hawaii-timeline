@@ -32,7 +32,7 @@ const Button = styled.button`
 const TitleBlock = ({ advanceEvent }) => {
   return (
     <Container>
-      <MainTitle>How the Lahania Fire Unfolded</MainTitle>
+      <MainTitle>How the Lahaina Fire Unfolded</MainTitle>
       <Title>An interactive Timeline</Title>
       <Button onClick={() => advanceEvent()}>
         <Pin />
