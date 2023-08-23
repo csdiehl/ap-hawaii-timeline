@@ -163,7 +163,11 @@ function HeatTracker() {
       {currentIndex < 0 && <TitleBlock advanceEvent={advanceEvent} />}
       {timelineData && (
         <>
-          <InfoBox currentIndex={currentIndex} data={timelineData} />
+          <InfoBox
+            resetText={width > 425}
+            currentIndex={currentIndex}
+            data={timelineData}
+          />
 
           <Map
             style={{ borderRadius: "5px" }}

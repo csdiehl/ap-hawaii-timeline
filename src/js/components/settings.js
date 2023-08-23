@@ -19,6 +19,8 @@ export const barricadesURL = `${s3Bucket}blocks-and-barricades.geojson`
 export const damageURL = `${s3Bucket}lahiana-damage-assessment.json`
 export const arrowLeft = `${s3Bucket}arrow-left.svg`
 export const arrowRight = `${s3Bucket}arrow-right.svg`
+export const openIcon = `${s3Bucket}maximize-2.svg`
+export const closeIcon = `${s3Bucket}minimize-2.svg`
 
 export const slideTransitions = {
   orangeMarkers: [1],

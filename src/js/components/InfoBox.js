@@ -1,14 +1,15 @@
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled, { keyframes, css } from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
 import {
   Text,
   Title,
   breakpoints,
-  fireColor,
   primaryColor,
   sirenColor,
+  closeIcon,
+  openIcon,
 } from "./settings"
 
 const Container = styled.div`
@@ -23,10 +24,15 @@ const Container = styled.div`
   transform: translateY(
     ${(props) => (props.before ? "-50%" : props.after ? "20%" : "0")}
   );
+
+  backdrop-filter: blur(5px);
+  max-height: ${(props) => (props.collapse ? "100px" : "1000px")};
+  overflow: hidden;
+
   transition: opacity 500ms ease-in-out
       ${(props) => (!props.show ? "" : "500ms")},
-    transform 500ms ease-in-out ${(props) => (!props.show ? "" : "500ms")};
-  backdrop-filter: blur(5px);
+    transform 500ms ease-in-out ${(props) => (!props.show ? "" : "500ms")},
+    max-height 500ms linear;
 
   @media (${breakpoints.tablet}) {
     top: 8px;
@@ -95,6 +101,18 @@ const HollowDot = styled.div`
   border: 1px solid ${sirenColor};
 `
 
+const TextToggle = styled.button`
+  all: unset;
+  padding: 8px;
+  visibility: hidden;
+  color: #fff;
+  z-index: 3;
+
+  @media (${breakpoints.mobile}) {
+    visibility: visible;
+  }
+`
+
 const formatDate = (dateString) => {
   return new Date(`${dateString}T01:00:00.000`).toLocaleDateString("en-US", {
     weekday: "long",
@@ -104,19 +122,38 @@ const formatDate = (dateString) => {
   })
 }
 
-const InfoBox = ({ data, currentIndex }) => {
+const InfoBox = ({ data, currentIndex, resetText }) => {
+  const [textCollapsed, setTextCollapsed] = useState(false)
+
+  useEffect(() => {
+    if (resetText) setTextCollapsed(false)
+  }, [resetText])
+
   return (
     <>
       {data.map((d, i) => (
         <Container
+          collapse={textCollapsed}
           id="current-message"
           before={i < currentIndex}
           after={i > currentIndex}
           show={currentIndex === i}
           key={i}
         >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Title>{d.title}</Title>
+            <TextToggle onClick={() => setTextCollapsed(!textCollapsed)}>
+              <img
+                alt="toggle-text-content"
+                src={textCollapsed ? openIcon : closeIcon}
+              ></img>
+            </TextToggle>
           </div>
           <Text style={{ color: "lightgrey" }}>
             {d.approx_local_time && (
