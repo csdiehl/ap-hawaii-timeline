@@ -4,6 +4,7 @@ export const breakpoints = {
   mobile: "max-width: 425px",
   tablet: "max-width: 768px",
   desktop: "max-width: 1024px",
+  textBreak: 600,
 }
 
 const s3Bucket =
