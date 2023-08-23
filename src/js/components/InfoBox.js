@@ -1,15 +1,14 @@
 import PropTypes from "prop-types"
-import React, { useEffect, useState } from "react"
-import styled, { keyframes, css } from "styled-components"
+import React, { useState } from "react"
+import styled, { css, keyframes } from "styled-components"
 import { AbsolutePos, CardBackground } from "./mixins"
 import {
   Text,
   Title,
   breakpoints,
-  primaryColor,
-  sirenColor,
   closeIcon,
   openIcon,
+  primaryColor,
 } from "./settings"
 
 const Container = styled.div`
@@ -24,9 +23,7 @@ const Container = styled.div`
   transform: translateY(
     ${(props) => (props.before ? "-50%" : props.after ? "20%" : "0")}
   );
-
   backdrop-filter: blur(5px);
-  max-height: ${(props) => (props.collapse ? "100px" : "1000px")};
   overflow: hidden;
 
   transition: opacity 500ms ease-in-out
@@ -37,25 +34,15 @@ const Container = styled.div`
   @media (${breakpoints.tablet}) {
     top: 8px;
     left: 8px;
+    max-height: 1000px;
   }
 
   @media (${breakpoints.mobile}) {
     top: 0px;
     left: 0px;
     width: 100%;
+    max-height: ${(props) => (props.collapse ? "100px" : "1000px")};
   }
-`
-
-const Legend = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-`
-
-const circleStyles = `
- height: 12px;
-  width: 12px;
-  border-radius: 50%;
 `
 
 const pulse = keyframes`
@@ -91,16 +78,6 @@ const TimeBox = styled.div`
   }
 `
 
-const Dot = styled.div`
-  ${circleStyles}
-  background-color: ${(props) => props.color ?? primaryColor};
-`
-
-const HollowDot = styled.div`
-  ${circleStyles}
-  border: 1px solid ${sirenColor};
-`
-
 const TextToggle = styled.button`
   all: unset;
   padding: 8px;
@@ -122,12 +99,8 @@ const formatDate = (dateString) => {
   })
 }
 
-const InfoBox = ({ data, currentIndex, resetText }) => {
+const InfoBox = ({ data, currentIndex, isDesktop }) => {
   const [textCollapsed, setTextCollapsed] = useState(false)
-
-  useEffect(() => {
-    if (resetText) setTextCollapsed(false)
-  }, [resetText])
 
   return (
     <>
@@ -162,7 +135,9 @@ const InfoBox = ({ data, currentIndex, resetText }) => {
             {formatDate(d.date)}
           </Text>
           <Text
-            dangerouslySetInnerHTML={{ __html: d.what }}
+            dangerouslySetInnerHTML={{
+              __html: isDesktop ? d.what : d?.mobileText ?? d.what,
+            }}
             style={{ marginTop: "16px" }}
           ></Text>
         </Container>

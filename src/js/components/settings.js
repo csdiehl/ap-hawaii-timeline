@@ -10,7 +10,7 @@ const s3Bucket =
   "https://s3.amazonaws.com/data.ap.org/west-maui-wildfires-timeline/"
 
 export const hotspotURL = `${s3Bucket}hawaii_hotspots_8.15.json`
-export const eventsURL = `${s3Bucket}visual-timeline.json`
+export const eventsURL = `${s3Bucket}visual-timeline-2.json`
 export const sirensURL = `${s3Bucket}all-lahaina-outdoor-sirens.geojson`
 export const satelliteDamageURL = `${s3Bucket}neighborhood-damage-fits-boundary-box.png`
 export const finalImageURL = `${s3Bucket}overview-damage-zoomed-out.png`

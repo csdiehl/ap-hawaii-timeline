@@ -164,7 +164,7 @@ function HeatTracker() {
       {timelineData && (
         <>
           <InfoBox
-            resetText={width > 425}
+            isDesktop={width > 425}
             currentIndex={currentIndex}
             data={timelineData}
           />
